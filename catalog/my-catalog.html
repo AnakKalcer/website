@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Catalog - Pokémon Collection</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/catalog.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-fixed">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-mark">W</div>
+                <span class="logo-text">START SMALL<br><small>THINK BIG</small></span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index/index.html">Home</a></li>
+                <li><a href="../index/index.html#about">About</a></li>
+                <li><a href="../skills/technical-skills.html" target="_blank" rel="noopener noreferrer">Technical Skills</a></li>
+                <li><a href="../education/education.html" target="_blank" rel="noopener noreferrer">Education</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <button class="btn-schedule">Schedule an interview <span class="arrow">→</span></button>
+                <button class="btn-help">?</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Catalog Section -->
+    <section class="catalog-section">
+        <div class="catalog-container">
+            <div class="catalog-header">
+                <h1>My Pokémon Catalog</h1>
+                <p class="catalog-subtitle">Explore and discover Pokémon from the PokéAPI</p>
+            </div>
+
+            <!-- Search, Filter & Pagination -->
+            <div class="catalog-controls">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    class="search-box" 
+                    placeholder="Search Pokémon by name..."
+                >
+                <div class="pagination-controls">
+                    <button id="prevPageBtn" class="pagination-btn">&larr; Prev</button>
+                    <span id="pageInfo" class="page-info">Page 1 / 1</span>
+                    <button id="nextPageBtn" class="pagination-btn">Next &rarr;</button>
+                    <select id="itemsPerPage" class="items-per-page">
+                        <option value="10" selected>10 per page</option>
+                        <option value="20">20 per page</option>
+                        <option value="30">30 per page</option>
+                        <option value="50">50 per page</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="catalog-crud">
+                <h2>Add Pokémon</h2>
+                <form id="addPokemonForm" class="add-pokemon-form">
+                    <div class="add-pokemon-grid">
+                        <div class="add-pokemon-preview">
+                            <img id="pokemonPreview" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png" alt="Preview Pokémon">
+                            <label for="pokemonFile" class="label">Upload Gambar</label>
+                            <input type="file" id="pokemonFile" accept="image/*" class="file-input">
+                            <p class="label">atau gunakan URL</p>
+                            <input type="url" id="pokemonImage" placeholder="URL Gambar (opsional)">
+                        </div>
+                        <div class="add-pokemon-fields">
+                            <label class="label" for="pokemonName">Nama Pokémon</label>
+                            <input type="text" id="pokemonName" placeholder="Nama Pokémon" required>
+
+                            <label class="label" for="pokemonType">Tipe</label>
+                            <select id="pokemonType" class="select-type">
+                                <option value="normal">Normal</option>
+                                <option value="fire">Fire</option>
+                                <option value="water">Water</option>
+                                <option value="grass">Grass</option>
+                                <option value="electric">Electric</option>
+                                <option value="ice">Ice</option>
+                                <option value="fighting">Fighting</option>
+                                <option value="poison">Poison</option>
+                                <option value="ground">Ground</option>
+                                <option value="flying">Flying</option>
+                                <option value="psychic">Psychic</option>
+                                <option value="bug">Bug</option>
+                                <option value="rock">Rock</option>
+                                <option value="ghost">Ghost</option>
+                                <option value="dragon">Dragon</option>
+                                <option value="dark">Dark</option>
+                                <option value="steel">Steel</option>
+                                <option value="fairy">Fairy</option>
+                            </select>
+
+                            <label class="label" for="pokemonDescription">Deskripsi</label>
+                            <textarea id="pokemonDescription" rows="4" placeholder="Deskripsi (opsional)"></textarea>
+
+                            <button type="submit" class="add-btn">Tambah</button>
+                        </div>
+                    </div>
+                </form>
+                <p class="hint">Jika tidak isi deskripsi, sistem akan membuat kalimat otomatis berdasarkan nama, tipe, dan ID. Atau tulis manual sendiri.</p>
+                <div class="chat-area" id="chatArea"></div>
+            </div>
+
+            <!-- Pokemon Grid -->
+            <div class="pokemon-grid" id="pokemonGrid">
+                <div class="loading">Loading Pokémon...</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pagination Info -->
+    <div class="pagination-info" id="paginationInfo">
+        Loaded: <span id="loadedCount">0</span> Pokémon (Total: 1025)</div>
+
+    <!-- Detail Modal -->
+    <div id="pokemonModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span id="closeModal" class="close">×</span>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <script src="../js/catalog.js"></script>
+</body>
+</html>

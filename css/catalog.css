@@ -242,6 +242,12 @@ html, body {
     transform: none;
 }
 
+.load-more-container {
+    text-align: center;
+    margin: 20px 0;
+    margin-bottom: 35px;
+}
+
 /* ============= POKEMON GRID ============= */
 .pokemon-grid {
     display: grid;
@@ -276,25 +282,48 @@ html, body {
     animation: fadeIn 0.4s ease;
 }
 
+/* Type-based border colors */
+.pokemon-card-type-grass { border-color: #7AC74C; border-top-color: #5a9d3a; }
+.pokemon-card-type-fire { border-color: #EE8130; border-top-color: #d46b1f; }
+.pokemon-card-type-water { border-color: #6390F0; border-top-color: #4170d0; }
+.pokemon-card-type-electric { border-color: #F7D02C; border-top-color: #d4b01a; }
+.pokemon-card-type-ice { border-color: #96D9D6; border-top-color: #6fb8b5; }
+.pokemon-card-type-fighting { border-color: #C22E28; border-top-color: #a01f15; }
+.pokemon-card-type-poison { border-color: #A33EA1; border-top-color: #7d2d7a; }
+.pokemon-card-type-ground { border-color: #E2BF65; border-top-color: #c9a850; }
+.pokemon-card-type-flying { border-color: #A98FF3; border-top-color: #8270d0; }
+.pokemon-card-type-psychic { border-color: #F95587; border-top-color: #d63f65; }
+.pokemon-card-type-bug { border-color: #A6B91A; border-top-color: #7d8811; }
+.pokemon-card-type-rock { border-color: #B6A136; border-top-color: #8f7d25; }
+.pokemon-card-type-ghost { border-color: #735797; border-top-color: #563f70; }
+.pokemon-card-type-dragon { border-color: #6F35FC; border-top-color: #5527ca; }
+.pokemon-card-type-dark { border-color: #705746; border-top-color: #5a4435; }
+.pokemon-card-type-steel { border-color: #B7B7CE; border-top-color: #95959f; }
+.pokemon-card-type-fairy { border-color: #D685AD; border-top-color: #b8658a; }
+.pokemon-card-type-normal { border-color: #A8A77A; border-top-color: #7f7d5d; }
+
 .delete-card-btn {
     position: absolute;
     top: 8px;
     right: 8px;
     border: none;
-    background: rgba(231, 76, 60, 0.9);
+    background: rgba(231, 76, 60, 0.85);
     color: #fff;
-    width: 24px;
-    height: 24px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
     cursor: pointer;
-    font-size: 14px;
-    line-height: 24px;
+    font-size: 16px;
+    line-height: 26px;
     text-align: center;
-    z-index: 2;
+    z-index: 10;
+    opacity: 0.8;
+    transition: opacity 0.2s ease, background 0.2s ease;
 }
 
 .delete-card-btn:hover {
-    background: rgba(192, 57, 43, 1);
+    background: rgba(192, 57, 43, 0.95);
+    opacity: 1;
 }
 
 .pokemon-source {
@@ -596,12 +625,31 @@ html, body {
 }
 
 .modal-body {
-    max-height: calc(84vh - 110px);
+    max-height: calc(85vh - 80px);
     overflow-y: auto;
     display: grid;
     grid-template-columns: 1fr;
     gap: 14px;
     position: relative;
+    padding-right: 8px;
+}
+
+.modal-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-body::-webkit-scrollbar-track {
+    background: #f0f3ff;
+    border-radius: 4px;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+    background: #888da7;
+    border-radius: 4px;
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover {
+    background: #6f759e;
 }
 
 .modal-top {

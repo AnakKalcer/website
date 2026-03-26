@@ -192,16 +192,18 @@ async function getPokemonFullInfo(pokemon) {
 // Create Pokemon card HTML
 function createPokemonCard(pokemon) {
     const isLocal = pokemon.source === 'local';
+    const primaryType = pokemon.types[0] || 'normal';
+    const typeClass = `pokemon-card-type-${primaryType}`;
     return `
-        <div class="pokemon-card" data-id="${pokemon.id}" data-source="${pokemon.source}">
-            <button class="delete-card-btn" data-id="${pokemon.id}" data-source="${pokemon.source}">✕</button>
+        <div class="pokemon-card ${typeClass}" data-id="${pokemon.id}" data-source="${pokemon.source}" data-type="${primaryType}">
+            <button class="delete-card-btn" data-id="${pokemon.id}" data-source="${pokemon.source}" title="Hapus">✕</button>
             <div class="pokemon-image">
                 <img src="${pokemon.image}" alt="${pokemon.name}" onerror="this.src='https://via.placeholder.com/120?text=${pokemon.name}'">
             </div>
             <div class="pokemon-name">${pokemon.name}</div>
             <div class="pokemon-id">#${String(pokemon.id).padStart(3, '0')}</div>
             <div class="pokemon-type">
-                ${pokemon.types.map(type => `<span class="type-badge">${type}</span>`).join('')}
+                ${pokemon.types.map(type => `<span class="type-badge type-badge-${type}">${type}</span>`).join('')}
             </div>
             <div class="pokemon-source">${isLocal ? 'Lokal' : 'API'}</div>
         </div>
@@ -852,6 +854,8 @@ modal.addEventListener('click', (e) => {
 
 window.addEventListener('load', async () => {
     localPokemon = loadLocalPokemon();
+    currentOffset = 0;
+    currentPage = 1;
 
     if (!localPokemon.length && !loadRemovedPokemonIds().size) {
         localPokemon = [...DEMO_POKEMON];
@@ -859,14 +863,18 @@ window.addEventListener('load', async () => {
     }
 
     syncAllPokemon();
-    filterPokemon('');
+    displayPokemon(filteredPokemon);
 
     await loadPokemon();
 
-    if (!allPokemon.length) {
+    if (!apiPokemon.length && !allPokemon.length) {
         // fallback jika API gagal memuat
-        localPokemon = [...DEMO_POKEMON];
+        if (!localPokemon.length) {
+            localPokemon = [...DEMO_POKEMON];
+            saveLocalPokemon();
+        }
         syncAllPokemon();
-        filterPokemon('');
     }
+    
+    displayPokemon(filteredPokemon);
 });

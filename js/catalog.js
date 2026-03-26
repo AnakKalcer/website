@@ -464,6 +464,20 @@ function openAddModal() {
         <div class="modal-body">
             <h3 style="margin: 0 0 12px;">Tambah Pokémon Baru</h3>
             <form id="modalAddForm" class="update-form">
+                <div class="update-row add-preview-row">
+                    <label>Preview Gambar</label>
+                    <div class="add-preview">
+                        <img id="modalAddPreview" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png" alt="Preview Pokémon">
+                    </div>
+                </div>
+                <div class="update-row">
+                    <label>Upload Gambar</label>
+                    <input id="modalAddFile" type="file" accept="image/*" />
+                </div>
+                <div class="update-row">
+                    <label>URL Gambar</label>
+                    <input id="modalAddImageUrl" name="pokemonImage" type="url" placeholder="https://..." />
+                </div>
                 <div class="update-row">
                     <label>Nama Pokémon</label>
                     <input name="pokemonName" type="text" required autofocus />
@@ -492,10 +506,6 @@ function openAddModal() {
                     </select>
                 </div>
                 <div class="update-row">
-                    <label>URL Gambar</label>
-                    <input name="pokemonImage" type="url" placeholder="https://..." />
-                </div>
-                <div class="update-row">
                     <label>Deskripsi</label>
                     <textarea name="pokemonDescription" rows="3" placeholder="Deskripsi singkat"></textarea>
                 </div>
@@ -510,6 +520,35 @@ function openAddModal() {
     modal.style.display = 'flex';
     document.body.style.overflow = 'hidden';
 
+    const previewImg = document.getElementById('modalAddPreview');
+    const fileInput = document.getElementById('modalAddFile');
+    const urlInput = document.getElementById('modalAddImageUrl');
+
+    let modalUploadedImageData = null;
+
+    fileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const result = event.target.result;
+            modalUploadedImageData = result;
+            previewImg.src = result;
+            urlInput.value = '';
+        };
+        reader.readAsDataURL(file);
+    });
+
+    urlInput.addEventListener('input', (e) => {
+        const url = e.target.value.trim();
+        if (url) {
+            previewImg.src = url;
+            modalUploadedImageData = null;
+        } else {
+            previewImg.src = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png';
+        }
+    });
+
     const form = document.getElementById('modalAddForm');
     form.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -518,10 +557,12 @@ function openAddModal() {
         const imageInput = form.elements['pokemonImage'].value.trim();
         const descInput = form.elements['pokemonDescription'].value.trim();
 
-        const result = addPokemonEntry(name, typeInput, imageInput, descInput);
+        const result = addPokemonEntry(name, typeInput, imageInput, descInput, modalUploadedImageData);
         if (!result) return;
 
         form.reset();
+        previewImg.src = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png';
+        modalUploadedImageData = null;
         closeModal();
     });
 
@@ -693,12 +734,12 @@ async function loadPokemon() {
     }
 }
 
-function addPokemonEntry(name, typeInput, imageInput, descInput) {
+function addPokemonEntry(name, typeInput, imageInput, descInput, dataUriImage = null) {
     if (!name) return;
 
     const highestLocal = Math.max(0, ...allPokemon.map(p => p.id || 0));
     const id = highestLocal + 1;
-    const image = imageInput ? imageInput : (uploadedImageData ? uploadedImageData : `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`);
+    const image = imageInput ? imageInput : (dataUriImage ? dataUriImage : (uploadedImageData ? uploadedImageData : `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`));
     const types = typeInput ? [typeInput] : ['normal'];
 
     if (allPokemon.some(p => p.source === 'local' && p.name.toLowerCase() === name.toLowerCase()) ||

@@ -18,6 +18,7 @@ let allPokemon = [];
 let filteredPokemon = [];
 let currentPage = 1;
 let itemsPerPage = DEFAULT_ITEMS_PER_PAGE;
+let uploadedImageData = null; // Stores Data URI when user uploads file directly
 
 const pokemonGrid = document.getElementById('pokemonGrid');
 const searchInput = document.getElementById('searchInput');
@@ -34,6 +35,8 @@ const itemsPerPageSelect = document.getElementById('itemsPerPage');
 const pokemonPreviewImg = document.getElementById('pokemonPreview');
 const pokemonFileInput = document.getElementById('pokemonFile');
 const pokemonImageInput = document.getElementById('pokemonImage');
+const toggleAddFormBtn = document.getElementById('toggleAddFormBtn');
+const catalogCrudSection = document.getElementById('catalogCrudSection');
 
 // loadMoreBtn tidak ada di layout baru, sifatnya optional
 const hasLoadMore = Boolean(loadMoreBtn);
@@ -83,9 +86,13 @@ function syncAllPokemon() {
     }
 
     const mergedApi = apiBase.map(p => apiOverrides.get(p.id) || p);
+
+    // Tampilkan Pokémon lokal terbaru di atas
+    localBase.sort((a, b) => (b.id || 0) - (a.id || 0));
+
     allPokemon = [
-        ...mergedApi,
-        ...localBase
+        ...localBase,
+        ...mergedApi
     ];
 }
 
@@ -256,6 +263,11 @@ function displayPokemon(pokemonList) {
 
 // Remove Pokemon
 function deletePokemon(id, source) {
+    const pokemon = allPokemon.find(p => String(p.id) === id && p.source === source);
+    const name = pokemon?.name || `#${id}`;
+    const confirmed = confirm(`Yakin ingin menghapus ${name} (${source})?`);
+    if (!confirmed) return;
+
     if (source === 'local') {
         localPokemon = localPokemon.filter(p => String(p.id) !== id);
         saveLocalPokemon();
@@ -415,6 +427,7 @@ async function openModal(pokemon) {
         newDescription.style.display = 'none';
 
         const form = document.getElementById('modalUpdateForm');
+
         form.addEventListener('submit', (e) => {
             e.preventDefault();
             const values = {
@@ -623,7 +636,7 @@ addPokemonForm.addEventListener('submit', (e) => {
 
     const highestLocal = Math.max(0, ...allPokemon.map(p => p.id || 0));
     const id = highestLocal + 1;
-    const image = imageInput || `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
+    const image = imageInput ? imageInput : (uploadedImageData ? uploadedImageData : `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`);
     const types = typeInput ? [typeInput] : ['normal'];
 
     if (allPokemon.some(p => p.source === 'local' && p.name.toLowerCase() === name.toLowerCase()) ||
@@ -642,13 +655,18 @@ addPokemonForm.addEventListener('submit', (e) => {
         description: descInput || autoDescription
     };
 
-    localPokemon.push(newPokemon);
+    localPokemon.unshift(newPokemon); // tambah di awal supaya terlihat langsung
     saveLocalPokemon();
     syncAllPokemon();
+    currentPage = 1;
     filterPokemon(searchInput.value);
     showChatMessage(newPokemon);
 
     addPokemonForm.reset();
+    uploadedImageData = null; // bersihkan setelah penyimpanan
+
+    // Pastikan item baru langsung terlihat
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
 searchInput.addEventListener('input', (e) => {
@@ -691,9 +709,20 @@ pokemonFileInput.addEventListener('change', (e) => {
         const result = event.target.result;
         pokemonPreviewImg.src = result;
         pokemonImageInput.value = '';
+        uploadedImageData = result; // simpan untuk digunakan saat submit
     };
     reader.readAsDataURL(file);
 });
+
+if (toggleAddFormBtn && catalogCrudSection) {
+    toggleAddFormBtn.addEventListener('click', () => {
+        const currentlyHidden = catalogCrudSection.style.display === 'none' || !catalogCrudSection.style.display;
+        catalogCrudSection.style.display = currentlyHidden ? 'block' : 'none';
+        if (currentlyHidden) {
+            catalogCrudSection.scrollIntoView({behavior: 'smooth', block: 'start'});
+        }
+    });
+}
 
 if (hasLoadMore) {
     loadMoreBtn.addEventListener('click', () => {

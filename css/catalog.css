@@ -593,6 +593,8 @@ html, body {
 }
 
 .modal-body {
+    max-height: calc(84vh - 110px);
+    overflow-y: auto;
     display: grid;
     grid-template-columns: 1fr;
     gap: 14px;
@@ -724,16 +726,22 @@ html, body {
 
 .modal-base-stats {
     min-width: 175px;
-    border: 1px solid #dbe9ff;
+    border: 1px solid #2a4a82;
     border-radius: 10px;
-    padding: 10px;
-    background: #f3f8ff;
+    padding: 12px;
+    background: #eaf1ff;
+    color: #142345;
 }
 
 .modal-base-stats h4 {
     margin: 0 0 8px;
     font-size: 14px;
-    color: #1f3b6b;
+    color: #0d1c36;
+}
+
+.modal-base-stats ul li {
+    color: #0d1c36;
+    font-weight: 700;
 }
 
 .modal-base-stats ul {
@@ -751,9 +759,14 @@ html, body {
     margin-top: 14px;
     display: flex;
     gap: 10px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
 }
 
+.modal-action-row .delete-btn {
+    margin-left: auto;
+}
 .modal-action-row button,
 .save-update-btn,
 .cancel-update-btn,
@@ -875,6 +888,13 @@ html, body {
     border-radius: 12px;
 }
 
+.update-form .buttons-wrap {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
 .update-row {
     margin-bottom: 10px;
     display: flex;
@@ -918,7 +938,6 @@ html, body {
 
 .save-update-btn { background: #2d8ef5; }
 .cancel-update-btn { background: #6c7d9d; }
-
 .modal-action-row .delete-btn,
 .modal-action-row .close-modal {
     border: none;
@@ -934,12 +953,15 @@ html, body {
 }
 
 .modal-action-row .delete-btn {
-    position: absolute;
-    right: 18px;
-    bottom: 18px;
-    width: 120px;
-    height: 42px;
-    margin: 0;
+    position: relative;
+    width: auto;
+    height: auto;
+    margin-left: auto;
+    border-radius: 10px;
+    padding: 10px 16px;
+    background: #ee5f5f;
+    color: #fff;
+    font-weight: 700;
 }
 
 .modal-action-row .close-modal {

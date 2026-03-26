@@ -19,8 +19,8 @@
                 <span class="logo-text">START SMALL<br><small>THINK BIG</small></span>
             </div>
             <ul class="nav-menu">
-                <li><a href="../index/index.html">Home</a></li>
-                <li><a href="../index/index.html#about">About</a></li>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#about">About</a></li>
                 <li><a href="../skills/technical-skills.html" target="_blank" rel="noopener noreferrer">Technical Skills</a></li>
                 <li><a href="../education/education.html" target="_blank" rel="noopener noreferrer">Education</a></li>
             </ul>
@@ -58,9 +58,17 @@
                         <option value="50">50 per page</option>
                     </select>
                 </div>
+                <button id="toggleAddFormBtn" class="add-btn" type="button">Add Pokémon</button>
+            </div>
+            <p id="addFormNote" class="hint" style="margin-top: 10px;">Form tambah ada di bawah daftar & tombol.</p>
+
+            <!-- Pokemon Grid -->
+            <div class="pokemon-grid" id="pokemonGrid">
+                <div class="loading">Loading Pokémon...</div>
             </div>
 
-            <div class="catalog-crud">
+            <!-- Add Form (below list) -->
+            <div class="catalog-crud" id="catalogCrudSection" style="display:none;">
                 <h2>Add Pokémon</h2>
                 <form id="addPokemonForm" class="add-pokemon-form">
                     <div class="add-pokemon-grid">
@@ -106,11 +114,6 @@
                 </form>
                 <p class="hint">Jika tidak isi deskripsi, sistem akan membuat kalimat otomatis berdasarkan nama, tipe, dan ID. Atau tulis manual sendiri.</p>
                 <div class="chat-area" id="chatArea"></div>
-            </div>
-
-            <!-- Pokemon Grid -->
-            <div class="pokemon-grid" id="pokemonGrid">
-                <div class="loading">Loading Pokémon...</div>
             </div>
         </div>
     </section>

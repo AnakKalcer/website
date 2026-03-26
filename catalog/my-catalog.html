@@ -39,7 +39,7 @@
                 <p class="catalog-subtitle">Explore and discover Pokémon from the PokéAPI</p>
             </div>
 
-            <!-- Search, Filter & Pagination -->
+            <!-- Search & Add -->
             <div class="catalog-controls">
                 <input 
                     type="text" 
@@ -47,17 +47,6 @@
                     class="search-box" 
                     placeholder="Search Pokémon by name..."
                 >
-                <div class="pagination-controls">
-                    <button id="prevPageBtn" class="pagination-btn">&larr; Prev</button>
-                    <span id="pageInfo" class="page-info">Page 1 / 1</span>
-                    <button id="nextPageBtn" class="pagination-btn">Next &rarr;</button>
-                    <select id="itemsPerPage" class="items-per-page">
-                        <option value="10" selected>10 per page</option>
-                        <option value="20">20 per page</option>
-                        <option value="30">30 per page</option>
-                        <option value="50">50 per page</option>
-                    </select>
-                </div>
                 <button id="toggleAddFormBtn" class="add-btn" type="button">Add Pokémon</button>
             </div>
             <p id="addFormNote" class="hint" style="margin-top: 10px;">Form tambah ada di bawah daftar & tombol.</p>
@@ -118,7 +107,19 @@
         </div>
     </section>
 
-    <!-- Pagination Info -->
+            <!-- Pagination (bottom) -->
+            <div class="pagination-controls pagination-bottom">
+                <button id="prevPageBtn" class="pagination-btn">&larr; Prev</button>
+                <span id="pageInfo" class="page-info">Page 1 / 1</span>
+                <button id="nextPageBtn" class="pagination-btn">Next &rarr;</button>
+                <select id="itemsPerPage" class="items-per-page">
+                    <option value="10" selected>10 per page</option>
+                    <option value="20">20 per page</option>
+                    <option value="30">30 per page</option>
+                    <option value="50">50 per page</option>
+                </select>
+            </div>
+
     <div class="pagination-info" id="paginationInfo">
         Loaded: <span id="loadedCount">0</span> Pokémon (Total: 1025)</div>
 

@@ -350,12 +350,12 @@ async function openModal(pokemon) {
             <div class="modal-action-row">
                 <button class="update-btn">Update</button>
                 <button class="delete-btn" data-id="${pokemon.id}" data-source="${pokemon.source}">Hapus</button>
-                <button class="close-modal">Tutup</button>
             </div>
         </div>
     `;
 
     modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
 
     const descriptionEl = modalBody.querySelector('.modal-description');
     await typeText(descriptionEl, description, 25);
@@ -364,8 +364,6 @@ async function openModal(pokemon) {
         deletePokemon(String(pokemon.id), pokemon.source);
         closeModal();
     });
-
-    modalBody.querySelector('.close-modal').addEventListener('click', closeModal);
 
     const statsUpdate = {
         hp: modalBody.querySelector('.stat-hp'),
@@ -458,6 +456,77 @@ async function openModal(pokemon) {
 
 function closeModal() {
     modal.style.display = 'none';
+    document.body.style.overflow = '';
+}
+
+function openAddModal() {
+    modalBody.innerHTML = `
+        <div class="modal-body">
+            <h3 style="margin: 0 0 12px;">Tambah Pokémon Baru</h3>
+            <form id="modalAddForm" class="update-form">
+                <div class="update-row">
+                    <label>Nama Pokémon</label>
+                    <input name="pokemonName" type="text" required autofocus />
+                </div>
+                <div class="update-row">
+                    <label>Tipe</label>
+                    <select name="pokemonType">
+                        <option value="normal">Normal</option>
+                        <option value="fire">Fire</option>
+                        <option value="water">Water</option>
+                        <option value="grass">Grass</option>
+                        <option value="electric">Electric</option>
+                        <option value="ice">Ice</option>
+                        <option value="fighting">Fighting</option>
+                        <option value="poison">Poison</option>
+                        <option value="ground">Ground</option>
+                        <option value="flying">Flying</option>
+                        <option value="psychic">Psychic</option>
+                        <option value="bug">Bug</option>
+                        <option value="rock">Rock</option>
+                        <option value="ghost">Ghost</option>
+                        <option value="dragon">Dragon</option>
+                        <option value="dark">Dark</option>
+                        <option value="steel">Steel</option>
+                        <option value="fairy">Fairy</option>
+                    </select>
+                </div>
+                <div class="update-row">
+                    <label>URL Gambar</label>
+                    <input name="pokemonImage" type="url" placeholder="https://..." />
+                </div>
+                <div class="update-row">
+                    <label>Deskripsi</label>
+                    <textarea name="pokemonDescription" rows="3" placeholder="Deskripsi singkat"></textarea>
+                </div>
+                <div class="update-row buttons-wrap">
+                    <button type="submit" class="save-update-btn">Tambah</button>
+                    <button type="button" class="cancel-update-btn" id="cancelAddBtn">Batal</button>
+                </div>
+            </form>
+        </div>
+    `;
+
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+
+    const form = document.getElementById('modalAddForm');
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = form.elements['pokemonName'].value.trim();
+        const typeInput = form.elements['pokemonType'].value;
+        const imageInput = form.elements['pokemonImage'].value.trim();
+        const descInput = form.elements['pokemonDescription'].value.trim();
+
+        const result = addPokemonEntry(name, typeInput, imageInput, descInput);
+        if (!result) return;
+
+        form.reset();
+        closeModal();
+    });
+
+    const cancelBtn = document.getElementById('cancelAddBtn');
+    cancelBtn.addEventListener('click', closeModal);
 }
 
 function renderUpdateForm(pokemon, extra) {
@@ -609,7 +678,7 @@ async function loadPokemon() {
 
     for (const pokemon of pokemonList) {
         const details = await getPokemonDetails(pokemon.url);
-        if (details) {
+        if (details && !apiPokemon.some(p => p.source === 'api' && p.id === details.id)) {
             apiPokemon.push(details);
         }
     }
@@ -624,14 +693,7 @@ async function loadPokemon() {
     }
 }
 
-addPokemonForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const name = document.getElementById('pokemonName').value.trim();
-    const typeInput = document.getElementById('pokemonType').value.trim();
-    const imageInput = document.getElementById('pokemonImage').value.trim();
-    const descInput = document.getElementById('pokemonDescription').value.trim();
-
+function addPokemonEntry(name, typeInput, imageInput, descInput) {
     if (!name) return;
 
     const highestLocal = Math.max(0, ...allPokemon.map(p => p.id || 0));
@@ -662,11 +724,25 @@ addPokemonForm.addEventListener('submit', (e) => {
     filterPokemon(searchInput.value);
     showChatMessage(newPokemon);
 
-    addPokemonForm.reset();
     uploadedImageData = null; // bersihkan setelah penyimpanan
 
     // Pastikan item baru langsung terlihat
     window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    return newPokemon;
+}
+
+addPokemonForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById('pokemonName').value.trim();
+    const typeInput = document.getElementById('pokemonType').value.trim();
+    const imageInput = document.getElementById('pokemonImage').value.trim();
+    const descInput = document.getElementById('pokemonDescription').value.trim();
+
+    const result = addPokemonEntry(name, typeInput, imageInput, descInput);
+    if (!result) return;
+    addPokemonForm.reset();
 });
 
 searchInput.addEventListener('input', (e) => {
@@ -714,14 +790,12 @@ pokemonFileInput.addEventListener('change', (e) => {
     reader.readAsDataURL(file);
 });
 
-if (toggleAddFormBtn && catalogCrudSection) {
-    toggleAddFormBtn.addEventListener('click', () => {
-        const currentlyHidden = catalogCrudSection.style.display === 'none' || !catalogCrudSection.style.display;
-        catalogCrudSection.style.display = currentlyHidden ? 'block' : 'none';
-        if (currentlyHidden) {
-            catalogCrudSection.scrollIntoView({behavior: 'smooth', block: 'start'});
-        }
-    });
+if (catalogCrudSection) {
+    catalogCrudSection.style.display = 'none';
+}
+
+if (toggleAddFormBtn) {
+    toggleAddFormBtn.addEventListener('click', openAddModal);
 }
 
 if (hasLoadMore) {

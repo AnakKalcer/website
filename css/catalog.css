@@ -158,6 +158,7 @@ html, body {
     display: flex;
     gap: 10px;
     align-items: center;
+    justify-content: center;
     flex-wrap: wrap;
 }
 
@@ -576,10 +577,11 @@ html, body {
 
 .close {
     position: absolute;
-    right: 14px;
-    top: 10px;
-    width: 34px;
-    height: 34px;
+    right: 8px;
+    top: 8px;
+    z-index: 99999;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     border: 2px solid #4579a7;
     display: flex;
@@ -590,6 +592,7 @@ html, body {
     font-size: 18px;
     font-weight: 900;
     cursor: pointer;
+    box-shadow: 0 0 16px rgba(0,0,0,.2);
 }
 
 .modal-body {
@@ -925,6 +928,39 @@ html, body {
 .buttons-wrap {
     display: flex;
     gap: 10px;
+}
+
+.modal-action-row {
+    position: sticky;
+    bottom: 0;
+    background: #fff;
+    margin-top: 10px;
+    padding: 10px 0 8px 0;
+    z-index: 2;
+    display: flex;
+    gap: 10px;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.modal-action-row .delete-btn {
+    margin-left: auto;
+}
+
+@media (max-width: 780px) {
+    .catalog-header h1 { font-size: 24px; }
+    .catalog-subtitle { font-size: 10px; }
+    .catalog-controls { gap: 8px; }
+    .pagination-controls { flex-wrap: wrap; gap: 8px; }
+    .pagination-btn, .items-per-page, .add-btn { font-size: 12px; padding: 8px 10px; }
+    .modal-content { width: min(95%, 95vw); }
+    .modal-body { max-height: calc(80vh - 90px); }
+}
+
+@media (max-width: 500px) {
+    .navbar-fixed .nav-menu { display: none; }
+    .navbar-fixed { padding: 8px 0; }
+    .nav-buttons { display: none; }
 }
 
 .save-update-btn,

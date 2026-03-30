@@ -117,7 +117,7 @@ async function getPokemonDetails(url) {
             source: 'api',
             id: data.id,
             name: data.name,
-            image: data.sprites.other['official-artwork'].front_default || data.sprites.front_default,
+            image: data.sprites.front_default,
             types: data.types.map(t => t.type.name),
             speciesUrl: data.species?.url || null,
             description: ''
@@ -759,7 +759,7 @@ function addPokemonEntry(name, typeInput, imageInput, descInput, dataUriImage = 
 
     const highestLocal = Math.max(0, ...allPokemon.map(p => p.id || 0));
     const id = highestLocal + 1;
-    const image = imageInput ? imageInput : (dataUriImage ? dataUriImage : (uploadedImageData ? uploadedImageData : `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`));
+    const image = imageInput ? imageInput : (dataUriImage ? dataUriImage : (uploadedImageData ? uploadedImageData : `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`));
     const types = typeInput ? [typeInput] : ['normal'];
 
     if (allPokemon.some(p => p.source === 'local' && p.name.toLowerCase() === name.toLowerCase()) ||

@@ -347,7 +347,7 @@ async function openModal(pokemon) {
 
             <div class="modal-description"></div>
 
-            <div class="modal-update-form" style="display:none;"></div>
+            <div class="modal-update-panel"></div>
 
             <div class="modal-action-row">
                 <button class="update-btn">Update</button>
@@ -418,13 +418,20 @@ async function openModal(pokemon) {
     loadExtraInfo();
 
     const updateBtn = modalBody.querySelector('.update-btn');
-    const updateFormContainer = modalBody.querySelector('.modal-update-form');
+    const updatePanel = modalBody.querySelector('.modal-update-panel');
+    const modalTop = modalBody.querySelector('.modal-top');
+    const modalDetails = modalBody.querySelector('.modal-details-grid');
+    const modalDescription = modalBody.querySelector('.modal-description');
+    const actionRow = modalBody.querySelector('.modal-action-row');
 
     updateBtn.addEventListener('click', () => {
-        updateFormContainer.style.display = 'block';
-        updateFormContainer.innerHTML = renderUpdateForm(pokemon, extra);
-        const newDescription = modalBody.querySelector('.modal-description');
-        newDescription.style.display = 'none';
+        modalTop.style.opacity = '0.25';
+        modalDetails.style.opacity = '0.25';
+        modalDescription.style.opacity = '0.25';
+        actionRow.style.display = 'none';
+
+        updatePanel.style.display = 'block';
+        updatePanel.innerHTML = renderUpdateForm(pokemon, extra);
 
         const form = document.getElementById('modalUpdateForm');
 
@@ -437,21 +444,32 @@ async function openModal(pokemon) {
                 eggGroups: form.elements['eggGroups'].value || '-',
                 growthRate: form.elements['growthRate'].value || '-',
                 gender: form.elements['gender'].value || '-',
+                hp: form.elements['hp'].value || '-',
+                attack: form.elements['attack'].value || '-',
+                defense: form.elements['defense'].value || '-',
+                specialAttack: form.elements['specialAttack'].value || '-',
+                specialDefense: form.elements['specialDefense'].value || '-',
+                speed: form.elements['speed'].value || '-',
                 catchRate: form.elements['catchRate'].value || '-',
                 baseFriendship: form.elements['baseFriendship'].value || '-',
                 description: form.elements['description'].value || 'Deskripsi tidak tersedia.'
             };
 
             applyUpdateToPokemon(pokemon, values);
-            modalBody.querySelector('.modal-description').textContent = values.description;
-            modalBody.querySelector('.modal-description').style.display = 'block';
-            updateFormContainer.style.display = 'none';
+            modalDescription.textContent = values.description;
+            modalDescription.style.opacity = '1';
+            modalTop.style.opacity = '1';
+            modalDetails.style.opacity = '1';
+            actionRow.style.display = 'flex';
+            updatePanel.style.display = 'none';
         });
 
         modalBody.querySelector('.cancel-update-btn').addEventListener('click', () => {
-            updateFormContainer.style.display = 'none';
-            const newDescription = modalBody.querySelector('.modal-description');
-            newDescription.style.display = 'block';
+            updatePanel.style.display = 'none';
+            modalTop.style.opacity = '1';
+            modalDetails.style.opacity = '1';
+            modalDescription.style.opacity = '1';
+            actionRow.style.display = 'flex';
         });
     });
 }

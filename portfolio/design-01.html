@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FinHub - Digital Banking Platform</title>
+    <title>MyTelkomsel - Aplikasi Telekomunikasi Digital</title>
     <link rel="stylesheet" href="../css/design-01.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -17,88 +17,91 @@
         <div class="app-screen active-screen" id="screen-splash">
             <div class="splash-content">
                 <div class="splash-logo">
-                    <div class="logo-circle">F</div>
+                    <img src="../telkomsel/my-telkomsel.svg" alt="MyTelkomsel Logo" class="telkomsel-logo-img"/>
                 </div>
-                <h1 class="splash-title">FinHub</h1>
-                <p class="splash-subtitle">Layanan Perbankan Digital Terpercaya</p>
                 <div class="loading-animation">
                     <div class="loading-bar"></div>
+                    <p class="loading-text">Memulai layanan...</p>
                 </div>
             </div>
         </div>
 
         <!-- Screen 2: Login Screen -->
         <div class="app-screen" id="screen-login">
-            <div class="app-header">
-                <h1 class="app-title">Masuk ke Akun Anda</h1>
+            <div class="app-header telkomsel-header">
+                <h1 class="app-title">Masuk dengan Nomor Telepon</h1>
             </div>
 
             <div class="login-content">
-                <div class="login-illustration">
-                    <div class="illustration-icon">👤</div>
-                    <div class="illustration-card">📋</div>
+                <div class="login-illustration telkomsel-illustration">
+                    <i class="fas fa-mobile-alt" style="font-size: 60px; color: #EC2028;"></i>
                 </div>
 
-                <h2 class="login-title">Silahkan masuk dengan nomor rekening Anda</h2>
+                <h2 class="login-title">Masukkan Nomor Telepon Anda</h2>
+                <p class="login-subtitle">Format: 08xxx atau +62xxx</p>
                 
                 <div class="form-group">
-                    <label for="account-number">Nomor Rekening</label>
-                    <input 
-                        type="text" 
-                        id="account-number" 
-                        placeholder="Cth. 123 atau 0123456789"
-                        class="form-input"
-                    >
+                    <label for="account-number">Nomor Telepon (MSISDN)</label>
+                    <div class="phone-input-wrapper">
+                        <span class="phone-prefix" id="phone-prefix">+62</span>
+                        <input 
+                            type="tel" 
+                            id="account-number" 
+                            placeholder="812345678"
+                            class="form-input phone-input"
+                            maxlength="12"
+                        >
+                    </div>
+                    <small class="form-hint">✓ Gunakan nomor aktif Telkomsel Anda</small>
                 </div>
 
                 <div class="form-checkbox">
                     <input type="checkbox" id="agree-terms" checked>
                     <label for="agree-terms">
                         Saya menyetujui 
-                        <span class="text-primary">syarat, ketentuan</span>, 
-                        dan <span class="text-primary">privasi</span>
+                        <span class="text-primary">syarat & ketentuan</span> 
+                        dan <span class="text-primary">kebijakan privasi</span>
                     </label>
                 </div>
 
-                <button class="btn-login" onclick="handleLogin()">MASUK</button>
+                <button class="btn-login telkomsel-login" onclick="handleLogin()">LANJUTKAN</button>
 
-                <div class="divider">Atau masuk menggunakan</div>
-
-                <div class="social-buttons">
-                    <button class="btn-social btn-facebook">f Facebook</button>
-                    <button class="btn-social btn-google">🔍 Google</button>
-                </div>
+                <p class="login-note">Kami akan mengirim kode verifikasi ke nomor ini</p>
             </div>
         </div>
 
         <!-- Screen 3: OTP Verification Screen -->
         <div class="app-screen" id="screen-verify">
-            <div class="app-header">
+            <div class="app-header telkomsel-header">
                 <button class="btn-back" onclick="goBackToLogin()">← KEMBALI</button>
             </div>
 
             <div class="verify-content">
                 <div class="verify-illustration">
-                    <div class="verification-icon">✓</div>
+                    <i class="fas fa-envelope-open" style="font-size: 60px; color: #EC2028;"></i>
                 </div>
 
-                <h2 class="verify-title">Masukan kode unik yang kami kirim</h2>
-                <p class="verify-subtitle">Silahkan perisa SMS kami dan masukan kode unik yang kami kirimkan untuk verifikasi</p>
+                <h2 class="verify-title">Verifikasi Nomor Telepon</h2>
+                <p class="verify-subtitle" id="otp-phone-number">Kode verifikasi telah dikirim ke nomor Anda</p>
 
-                <div class="form-group">
-                    <label for="otp-code">Kode Unik (Hanya angka)</label>
-                    <input 
-                        type="text" 
-                        id="otp-code" 
-                        placeholder="Cth. 123"
-                        class="form-input"
-                        maxlength="6"
-                    >
+                <div class="otp-input-group">
+                    <label>Masukkan Kode Verifikasi (4 digit)</label>
+                    <div class="otp-boxes">
+                        <input type="text" class="otp-box" maxlength="1" data-index="0" onkeyup="focusNextOTP(this)">
+                        <input type="text" class="otp-box" maxlength="1" data-index="1" onkeyup="focusNextOTP(this)">
+                        <input type="text" class="otp-box" maxlength="1" data-index="2" onkeyup="focusNextOTP(this)">
+                        <input type="text" class="otp-box" maxlength="1" data-index="3" onkeyup="focusNextOTP(this)">
+                    </div>
                 </div>
 
-                <p class="otp-note">💡 Untuk demo, masukan angka apapun (contoh: 123)</p>
+                <div class="otp-resend">
+                    <p>Belum menerima kode?</p>
+                    <button class="btn-resend" id="btn-resend" onclick="resendOTP()" disabled>
+                        Kirim ulang dalam <span id="countdown">30</span>s
+                    </button>
+                </div>
 
-                <button class="btn-verify" onclick="handleVerify()">VERIFIKASI</button>
+                <button class="btn-verify telkomsel-verify" onclick="handleVerify()">VERIFIKASI</button>
             </div>
         </div>
 
@@ -120,61 +123,61 @@
                     </div>
                 </div>
 
-                <!-- Balance Card -->
-                <div class="balance-card">
+                <!-- Pulsa/Kuota Card -->
+                <div class="balance-card telkomsel-card">
                     <div class="card-top">
                         <div>
-                            <p class="card-label">Saldo Utama</p>
-                            <p class="card-account">Rekening Tabungan</p>
+                            <p class="card-label">Sisa Pulsa Anda</p>
+                            <p class="card-account">Paket Aktif</p>
                         </div>
-                        <span class="bank-badge">Verified</span>
+                        <span class="bank-badge">Aktif</span>
                     </div>
-                    <div class="balance-amount">Rp45.250.000</div>
+                    <div class="balance-amount">Rp 75.000</div>
                     <div class="card-details">
                         <div class="card-number">
-                            <span class="card-label-small">No. Rekening</span>
-                            <span class="card-number-value">0123456789</span>
+                            <span class="card-label-small">Kuota Internet</span>
+                            <span class="card-number-value">4.5 GB / 10 GB</span>
                         </div>
-                        <button class="status-badge" onclick="alert('Transfer sedang dalam pengembangan')">+ Transfer</button>
+                        <button class="status-badge telkomsel-btn" onclick="openModal('modal-transfer')">+ Isi Pulsa</button>
                     </div>
                 </div>
             </div>
 
             <!-- Menu Categories -->
             <div class="menu-section">
-                <h3 class="menu-title">Layanan Perbankan</h3>
+                <h3 class="menu-title">Layanan Telkomsel</h3>
                 <div class="menu-grid">
                     <button class="menu-item" onclick="openModal('modal-transfer')">
-                        <span class="menu-icon"><i class="fas fa-arrow-right-arrow-left"></i></span>
-                        <span class="menu-label">Transfer</span>
+                        <span class="menu-icon"><i class="fas fa-wifi"></i></span>
+                        <span class="menu-label">Beli Paket</span>
                     </button>
                     <button class="menu-item" onclick="openModal('modal-payment')">
-                        <span class="menu-icon"><i class="fas fa-credit-card"></i></span>
-                        <span class="menu-label">Pembayaran</span>
+                        <span class="menu-icon"><i class="fas fa-signal"></i></span>
+                        <span class="menu-label">Internet</span>
                     </button>
                     <button class="menu-item" onclick="openModal('modal-investment')">
-                        <span class="menu-icon"><i class="fas fa-chart-line"></i></span>
-                        <span class="menu-label">Investasi</span>
+                        <span class="menu-icon"><i class="fas fa-phone"></i></span>
+                        <span class="menu-label">Telpon & SMS</span>
                     </button>
                     <button class="menu-item" onclick="openModal('modal-loan')">
-                        <span class="menu-icon"><i class="fas fa-percent"></i></span>
-                        <span class="menu-label">Cicilan</span>
+                        <span class="menu-icon"><i class="fas fa-globe"></i></span>
+                        <span class="menu-label">Roaming</span>
                     </button>
-                    <button class="menu-item" onclick="alert('Layanan sedang dikembangkan')">
-                        <span class="menu-icon"><i class="fas fa-wallet"></i></span>
-                        <span class="menu-label">Kartu Kredit</span>
+                    <button class="menu-item" onclick="alert('Fitur hiburan sedang dikembangkan')">
+                        <span class="menu-icon"><i class="fas fa-star"></i></span>
+                        <span class="menu-label">Hiburan</span>
                     </button>
-                    <button class="menu-item" onclick="alert('Fitur QRIS sedang dikembangkan')">
-                        <span class="menu-icon"><i class="fas fa-qrcode"></i></span>
-                        <span class="menu-label">QRIS/Scan</span>
+                    <button class="menu-item" onclick="alert('Daftar promo sedang dimuat')">
+                        <span class="menu-icon"><i class="fas fa-tag"></i></span>
+                        <span class="menu-label">Promo</span>
                     </button>
                 </div>
             </div>
 
-            <!-- News/Promo Section -->
+            <!-- Promo & Recommendation Section -->
             <div class="promo-section">
                 <div class="section-header">
-                    <h3 class="section-title">Berita Terkini</h3>
+                    <h3 class="section-title">Promo & Rekomendasi</h3>
                     <a href="#" class="lihat-semua" onclick="goToScreen('screen-news'); return false;">Lihat Semua →</a>
                 </div>
                 <div id="news-container" class="promo-carousel">
@@ -308,8 +311,8 @@
 
             <div class="transactions-content">
                 <div class="transactions-header">
-                    <h2 class="login-title">Riwayat Aktivitas</h2>
-                    <p class="transactions-subtitle">Kelola transaksi Anda</p>
+                    <h2 class="login-title">Riwayat Pembelian</h2>
+                    <p class="transactions-subtitle">Kelola paket dan pulsa Anda</p>
                 </div>
                 <div id="transactions-list" class="transactions-list">
                     <p style="text-align: center; color: #999; padding: 20px;">Belum ada transaksi</p>
@@ -347,27 +350,33 @@
 
         <!-- ========== MODALS & BOTTOM SHEETS ========== -->
 
-        <!-- Transfer Modal -->
+        <!-- Transfer Modal → Beli Paket Modal -->
         <div class="modal-overlay" id="modal-transfer" onclick="closeModal('modal-transfer')">
             <div class="modal-content bottom-sheet" onclick="event.stopPropagation()">
                 <div class="modal-header">
-                    <h2>Transfer Dana</h2>
+                    <h2>Beli Paket Data</h2>
                     <button class="modal-close" onclick="closeModal('modal-transfer')">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="transfer-recipient">Nama Penerima</label>
-                        <input type="text" id="transfer-recipient" class="form-input" placeholder="Nama lengkap penerima">
+                        <label for="transfer-recipient">Pilih Paket</label>
+                        <select id="transfer-recipient" class="form-input">
+                            <option value="">Pilih paket data...</option>
+                            <option value="paket1">Paket 5GB - Rp50.000</option>
+                            <option value="paket2">Paket 10GB - Rp75.000</option>
+                            <option value="paket3">Paket 20GB - Rp125.000</option>
+                            <option value="paket4">Paket Unlimited - Rp250.000</option>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label for="transfer-account">Nomor Rekening Tujuan</label>
-                        <input type="text" id="transfer-account" class="form-input" placeholder="0123456789">
+                        <label for="transfer-account">Nomor Tujuan</label>
+                        <input type="tel" id="transfer-account" class="form-input" placeholder="08129011XXXX" maxlength="12">
                     </div>
                     <div class="form-group">
-                        <label for="transfer-amount">Nominal Transfer</label>
-                        <input type="number" id="transfer-amount" class="form-input" placeholder="Rp100.000">
+                        <label for="transfer-amount">Nominal Pembayaran</label>
+                        <input type="number" id="transfer-amount" class="form-input" placeholder="Rp50.000" min="0">
                     </div>
                     <div class="form-group">
                         <label for="transfer-note">Catatan (Opsional)</label>
@@ -376,115 +385,127 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn-secondary" onclick="closeModal('modal-transfer')">Batal</button>
-                    <button class="btn-primary" onclick="submitTransfer()">Transfer Sekarang</button>
+                    <button class="btn-primary" onclick="submitTransfer()">Beli Sekarang</button>
                 </div>
             </div>
         </div>
 
-        <!-- Payment Modal -->
+        <!-- Payment Modal → Internet Services Modal -->
         <div class="modal-overlay" id="modal-payment" onclick="closeModal('modal-payment')">
             <div class="modal-content bottom-sheet" onclick="event.stopPropagation()">
                 <div class="modal-header">
-                    <h2>Bayar Tagihan</h2>
+                    <h2>Layanan Internet</h2>
                     <button class="modal-close" onclick="closeModal('modal-payment')">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="payment-type">Jenis Tagihan</label>
+                        <label for="payment-type">Tipe Layanan</label>
                         <select id="payment-type" class="form-input">
-                            <option value="">Pilih jenis tagihan...</option>
-                            <option value="listrik">Listrik (PLN)</option>
-                            <option value="air">Air (PDAM)</option>
-                            <option value="telepon">Telepon/Internet</option>
-                            <option value="cicilan">Cicilan Kendaraan</option>
-                            <option value="asuransi">Asuransi</option>
+                            <option value="">Pilih layanan...</option>
+                            <option value="hotspot">Hotspot Terbatas - Rp5.000/hari</option>
+                            <option value="streaming">Paket Streaming - Rp25.000/bulan</option>
+                            <option value="gaming">Paket Gaming - Rp50.000/bulan</option>
+                            <option value="unlimited">Unlimited Internet - Rp100.000/bulan</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="payment-customer-id">ID Customer/Nomor Pelanggan</label>
-                        <input type="text" id="payment-customer-id" class="form-input" placeholder="Misal: 121212121">
+                        <label for="payment-customer-id">Nomor Pelanggan</label>
+                        <input type="tel" id="payment-customer-id" class="form-input" placeholder="08129011XXXX" maxlength="12">
                     </div>
                     <div class="form-group">
                         <label for="payment-amount">Nominal Pembayaran</label>
-                        <input type="number" id="payment-amount" class="form-input" placeholder="Rp50.000">
+                        <input type="number" id="payment-amount" class="form-input" placeholder="Rp25.000" min="0">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn-secondary" onclick="closeModal('modal-payment')">Batal</button>
-                    <button class="btn-primary" onclick="submitPayment()">Bayar Sekarang</button>
+                    <button class="btn-primary" onclick="submitPayment()">Aktifkan Sekarang</button>
                 </div>
             </div>
         </div>
 
-        <!-- Investment Modal -->
+        <!-- Investment Modal → Roaming Services Modal -->
         <div class="modal-overlay" id="modal-investment" onclick="closeModal('modal-investment')">
             <div class="modal-content bottom-sheet" onclick="event.stopPropagation()">
                 <div class="modal-header">
-                    <h2>Investasi Aset</h2>
+                    <h2>Paket Roaming</h2>
                     <button class="modal-close" onclick="closeModal('modal-investment')">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="investment-asset">Pilih Aset Investasi</label>
+                        <label for="investment-asset">Pilih Negara Tujuan</label>
                         <select id="investment-asset" class="form-input">
-                            <option value="">Pilih aset...</option>
-                            <option value="reksadana">Reksadana Pasar Uang</option>
-                            <option value="saham">Saham - IDX Composite</option>
-                            <option value="obligasi">Obligasi Negara</option>
-                            <option value="kripto">Crypto Assets</option>
-                            <option value="emas">Emas Digital</option>
+                            <option value="">Pilih negara...</option>
+                            <option value="malaysia">Malaysia - Rp100.000/3 hari</option>
+                            <option value="singapore">Singapura - Rp150.000/7 hari</option>
+                            <option value="thailand">Thailand - Rp80.000/3 hari</option>
+                            <option value="japan">Jepang - Rp200.000/7 hari</option>
+                            <option value="usa">USA - Rp300.000/30 hari</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="investment-amount">Nominal Investasi</label>
-                        <input type="number" id="investment-amount" class="form-input" placeholder="Rp100.000 (min)">
+                        <label for="investment-amount">Nomor Pelanggan</label>
+                        <input type="tel" id="investment-amount" class="form-input" placeholder="08129011XXXX" maxlength="12">
                     </div>
                     <div class="form-group">
-                        <label for="investment-duration">Durasi Investasi (Bulan)</label>
-                        <input type="number" id="investment-duration" class="form-input" placeholder="Contoh: 12">
+                        <label for="investment-duration">Nominal Paket</label>
+                        <input type="number" id="investment-duration" class="form-input" placeholder="Rp100.000">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn-secondary" onclick="closeModal('modal-investment')">Batal</button>
-                    <button class="btn-primary" onclick="submitInvestment()">Mulai Investasi</button>
+                    <button class="btn-primary" onclick="submitInvestment()">Aktifkan Roaming</button>
                 </div>
             </div>
         </div>
 
-        <!-- Loan Modal -->
+        <!-- Loan Modal → Add-on Subscriptions Modal -->
         <div class="modal-overlay" id="modal-loan" onclick="closeModal('modal-loan')">
             <div class="modal-content bottom-sheet" onclick="event.stopPropagation()">
                 <div class="modal-header">
-                    <h2>Ajukan Cicilan</h2>
+                    <h2>Add-on & Hiburan</h2>
                     <button class="modal-close" onclick="closeModal('modal-loan')">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="loan-name">Nama Cicilan</label>
-                        <input type="text" id="loan-name" class="form-input" placeholder="Misal: Motor Honda">
+                        <label for="loan-name">Pilih Layanan</label>
+                        <select id="loan-name" class="form-input">
+                            <option value="">Pilih add-on...</option>
+                            <option value="music">Musik Unlimited - Rp12.000/bulan</option>
+                            <option value="video">Video Premium - Rp25.000/bulan</option>
+                            <option value="gaming">Gaming Subscription - Rp30.000/bulan</option>
+                            <option value="kids">Kids Safe - Rp10.000/bulan</option>
+                            <option value="antivirus">Antivirus Protection - Rp8.000/bulan</option>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label for="loan-total">Total Cicilan</label>
-                        <input type="number" id="loan-total" class="form-input" placeholder="Rp10.000.000">
+                        <label for="loan-total">Nomor Pelanggan</label>
+                        <input type="tel" id="loan-total" class="form-input" placeholder="08129011XXXX" maxlength="12">
                     </div>
                     <div class="form-group">
-                        <label for="loan-months">Lama Cicilan (Bulan)</label>
-                        <input type="number" id="loan-months" class="form-input" placeholder="12, 24, atau 36">
+                        <label for="loan-months">Durasi Berlangganan (Bulan)</label>
+                        <select id="loan-months" class="form-input">
+                            <option value="">Pilih durasi...</option>
+                            <option value="1">1 Bulan</option>
+                            <option value="3">3 Bulan</option>
+                            <option value="6">6 Bulan</option>
+                            <option value="12">12 Bulan</option>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label for="loan-duedate">Tanggal Jatuh Tempo</label>
+                        <label for="loan-duedate">Tanggal Aktivasi</label>
                         <input type="date" id="loan-duedate" class="form-input">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn-secondary" onclick="closeModal('modal-loan')">Batal</button>
-                    <button class="btn-primary" onclick="submitLoan()">Ajukan Cicilan</button>
+                    <button class="btn-primary" onclick="submitLoan()">Berlangganan Sekarang</button>
                 </div>
             </div>
         </div>
@@ -516,19 +537,19 @@
         <div class="bottom-nav">
             <button class="nav-item active" onclick="goToScreen('screen-dashboard')" data-screen="screen-dashboard">
                 <i class="fas fa-home"></i>
-                <span>Home</span>
+                <span>Beranda</span>
             </button>
             <button class="nav-item" onclick="goToScreen('screen-transactions')" data-screen="screen-transactions">
-                <i class="fas fa-exchange-alt"></i>
-                <span>Transaksi</span>
+                <i class="fas fa-history"></i>
+                <span>Riwayat</span>
             </button>
             <button class="nav-item" onclick="goToScreen('screen-search')" data-screen="screen-search">
-                <i class="fas fa-search"></i>
-                <span>Cari</span>
+                <i class="fas fa-headset"></i>
+                <span>Bantuan</span>
             </button>
             <button class="nav-item" onclick="goToScreen('screen-profile')" data-screen="screen-profile">
                 <i class="fas fa-user"></i>
-                <span>Profil</span>
+                <span>Akun</span>
             </button>
         </div>
     </div>

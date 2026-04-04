@@ -21,7 +21,7 @@ body.app-body {
     top: 15px;
     left: 15px;
     padding: 8px 16px;
-    background: #003DA5;
+    background: #EC2028;
     color: white;
     text-decoration: none;
     border-radius: 6px;
@@ -29,13 +29,13 @@ body.app-body {
     font-weight: 600;
     z-index: 1000;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0, 61, 165, 0.2);
+    box-shadow: 0 4px 12px rgba(236, 32, 40, 0.2);
 }
 
 .back-to-portfolio:hover {
-    background: #0052CC;
+    background: #CC1414;
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(0, 61, 165, 0.3);
+    box-shadow: 0 6px 16px rgba(236, 32, 40, 0.3);
 }
 
 /* App Container */
@@ -79,7 +79,7 @@ body.app-body {
 }
 
 .app-header {
-    background: #003DA5;
+    background: #EC2028;
     color: white;
     padding: 15px 20px;
     text-align: center;
@@ -107,7 +107,12 @@ body.app-body {
 
 .splash-logo {
     margin-bottom: 25px;
-    animation: logoFloat 2s ease-in-out infinite;
+}
+
+.telkomsel-logo-img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
 }
 
 @keyframes logoFloat {
@@ -129,7 +134,7 @@ body.app-body {
     justify-content: center;
     font-size: 35px;
     font-weight: bold;
-    color: #003DA5;
+    color: white;
 }
 
 .splash-title {
@@ -303,8 +308,8 @@ body.app-body {
 
 .form-input:focus {
     outline: none;
-    border-color: #003DA5;
-    box-shadow: 0 0 0 3px rgba(0, 61, 165, 0.08);
+    border-color: #EC2028;
+    box-shadow: 0 0 0 3px rgba(236, 32, 40, 0.08);
 }
 
 /* Checkbox */
@@ -320,7 +325,7 @@ body.app-body {
     height: 16px;
     margin-top: 2px;
     cursor: pointer;
-    accent-color: #003DA5;
+    accent-color: #EC2028;
     flex-shrink: 0;
 }
 
@@ -333,7 +338,7 @@ body.app-body {
 }
 
 .text-primary {
-    color: #003DA5;
+    color: #EC2028;
     font-weight: 600;
 }
 
@@ -416,13 +421,146 @@ body.app-body {
     margin-bottom: 16px;
 }
 
+/* ============= OTP INPUT BOXES ============= */
+.otp-input-group {
+    margin: 24px 0;
+}
+
+.otp-input-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 12px;
+}
+
+.otp-boxes {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.otp-box {
+    width: 50px;
+    height: 50px;
+    border: 2px solid #E0E0E0;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+.otp-box:focus {
+    outline: none;
+    border-color: #EC2028;
+    box-shadow: 0 0 0 3px rgba(236, 32, 40, 0.1);
+    background: #FFF5F5;
+}
+
+.otp-resend {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.otp-resend p {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.btn-resend {
+    background: none;
+    border: none;
+    color: #EC2028;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: underline;
+    transition: all 0.3s ease;
+}
+
+.btn-resend:hover:not(:disabled) {
+    color: #CC1414;
+}
+
+.btn-resend:disabled {
+    color: #CCCCCC;
+    cursor: not-allowed;
+    text-decoration: none;
+}
+
+/* ============= TELKOMSEL SPECIFIC STYLES ============= */
+.telkomsel-header {
+    background: linear-gradient(135deg, #EC2028 0%, #FF6B35 100%);
+}
+
+.telkomsel-illustration {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.telkomsel-card {
+    background: linear-gradient(135deg, #FFF5F5 0%, #FFE8E8 100%);
+    border: 2px solid #EC2028;
+}
+
+.telkomsel-login,
+.telkomsel-verify,
+.telkomsel-btn {
+    background: linear-gradient(135deg, #EC2028 0%, #FF6B35 100%);
+}
+
+/* ============= PHONE INPUT STYLING ============= */
+.phone-input-wrapper {
+    display: flex;
+    align-items: center;
+    border: 2px solid #E0E0E0;
+    border-radius: 8px;
+    padding: 0 12px;
+    transition: all 0.3s ease;
+}
+
+.phone-input-wrapper:focus-within {
+    border-color: #EC2028;
+    box-shadow: 0 0 0 3px rgba(236, 32, 40, 0.1);
+    background: #FFF5F5;
+}
+
+.phone-prefix {
+    font-weight: 600;
+    color: #EC2028;
+    margin-right: 8px;
+    font-size: 14px;
+}
+
+.phone-input {
+    flex: 1;
+    border: none;
+    padding: 12px 0 !important;
+}
+
+.phone-input:focus {
+    box-shadow: none !important;
+    outline: none;
+}
+
+.form-hint {
+    display: block;
+    font-size: 12px;
+    color: #666;
+    margin-top: 6px;
+}
+
 /* ============= SPLASH SCREEN ============= */
 .splash-content {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #003DA5 0%, #0052CC 100%);
+    background: linear-gradient(135deg, #EC2028 0%, #FF6B35 100%);
     color: white;
     text-align: center;
     padding: 60px 20px;
@@ -431,7 +569,6 @@ body.app-body {
 
 .splash-logo {
     margin-bottom: 30px;
-    animation: logoFloat 2s ease-in-out infinite;
 }
 
 @keyframes logoFloat {
@@ -2138,24 +2275,24 @@ body.app-body {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #003DA5 0%, #0052CC 100%);
+    background: linear-gradient(135deg, #EC2028 0%, #FF6B35 100%);
     color: white;
-    box-shadow: 0 4px 12px rgba(0, 61, 165, 0.2);
+    box-shadow: 0 4px 12px rgba(236, 32, 40, 0.2);
 }
 
 .btn-primary:hover:not(:disabled) {
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(0, 61, 165, 0.3);
+    box-shadow: 0 6px 16px rgba(236, 32, 40, 0.3);
 }
 
 .btn-secondary {
     background: white;
-    color: #0052CC;
-    border: 2px solid #0052CC;
+    color: #EC2028;
+    border: 2px solid #EC2028;
 }
 
 .btn-secondary:hover {
-    background: #F0F6FF;
+    background: #FFE8E8;
 }
 
 .btn-danger {

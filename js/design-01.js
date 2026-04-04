@@ -63,33 +63,60 @@ function handleLogin() {
     const accountNumber = document.getElementById('account-number').value.trim();
     const agreeTerms = document.getElementById('agree-terms').checked;
     
-    // Validation
+    // Phone number validation (MSISDN format)
     if (!accountNumber) {
-        alert('Please enter your account number');
+        showToast('Masukkan nomor telepon Anda', 'error');
+        return;
+    }
+    
+    // Validate phone format: +62 or 08, followed by 9-11 digits
+    const phoneRegex = /^(\+62|08)\d{9,11}$/;
+    const cleanedPhone = accountNumber.replace(/\D/g, '');
+    
+    if (!phoneRegex.test(accountNumber) && !phoneRegex.test('08' + cleanedPhone.substring(1))) {
+        showToast('Format nomor telepon tidak valid (gunakan +62 atau 08)', 'error');
         return;
     }
     
     if (!agreeTerms) {
-        alert('Please agree to terms and conditions');
+        showToast('Setujui syarat & ketentuan untuk melanjutkan', 'error');
         return;
     }
     
-    // Save account number to localStorage for session
+    // Save phone number to localStorage for session
     localStorage.setItem('accountNumber', accountNumber);
+    
+    // Display phone number on OTP screen
+    document.getElementById('otp-phone-number').textContent = `Kode verifikasi dikirim ke ${accountNumber}`;
+    
+    // Start OTP resend countdown
+    startOTPCountdown();
     
     // Navigate to OTP verification screen
     goToScreen('screen-verify');
+    
+    // Focus on first OTP input
+    setTimeout(() => {
+        const firstOTPBox = document.querySelector('.otp-box');
+        if (firstOTPBox) firstOTPBox.focus();
+    }, 100);
 }
 
 // ============= VERIFICATION FLOW =============
 
 // Handle OTP Verification
 function handleVerify() {
-    const otpCode = document.getElementById('otp-code').value.trim();
+    const otpBoxes = document.querySelectorAll('.otp-box');
+    let otpCode = '';
+    
+    // Collect all OTP digit inputs
+    otpBoxes.forEach(box => {
+        otpCode += box.value;
+    });
     
     // Validation
-    if (!otpCode) {
-        alert('Please enter OTP code');
+    if (otpCode.length < 4) {
+        showToast('Masukkan 4 digit kode verifikasi', 'error');
         return;
     }
     
@@ -97,24 +124,84 @@ function handleVerify() {
     // In production, this would be sent to backend for verification
     
     // Show success and navigate to dashboard
-    alert('OTP Verified Successfully! ✓');
+    showToast('OTP Berhasil Diverifikasi! ✓', 'success');
     
-    // Update dashboard with account info
-    const accountNumber = localStorage.getItem('accountNumber');
-    if (accountNumber) {
-        document.getElementById('account-display').textContent = accountNumber.substring(0, 4) + '****' + accountNumber.substring(accountNumber.length - 2);
-        document.getElementById('current-time').textContent = 'Hai, Anonim';
-    }
+    // Clear OTP boxes for next login
+    otpBoxes.forEach(box => box.value = '');
+    
+    // Initialize CRUD data if not exists
+    initializeCRUDData();
     
     // Navigate to dashboard
-    goToScreen('screen-dashboard');
+    setTimeout(() => {
+        goToScreen('screen-dashboard');
+    }, 500);
 }
+
+// ============= VERIFICATION FLOW (CONTINUED) =============
 
 // Back button from verify to login
 function goBackToLogin() {
-    // Clear OTP input
-    document.getElementById('otp-code').value = '';
+    // Clear OTP inputs
+    document.querySelectorAll('.otp-box').forEach(box => box.value = '');
+    
+    // Clear countdown timer
+    if (window.otpCountdownInterval) {
+        clearInterval(window.otpCountdownInterval);
+    }
+    
     goToScreen('screen-login');
+}
+
+// Auto-focus next OTP box when digit is entered
+function focusNextOTP(element) {
+    // Only allow numbers
+    element.value = element.value.replace(/[^0-9]/g, '');
+    
+    if (element.value.length > 0) {
+        const index = parseInt(element.getAttribute('data-index'));
+        const otpBoxes = document.querySelectorAll('.otp-box');
+        
+        // Move to next box if available
+        if (index < otpBoxes.length - 1) {
+            otpBoxes[index + 1].focus();
+        }
+    }
+}
+
+// Start OTP resend countdown timer
+let otpCountdownInterval;
+function startOTPCountdown() {
+    const resendBtn = document.getElementById('btn-resend');
+    const countdownSpan = document.getElementById('countdown');
+    let seconds = 30;
+    
+    // Disable resend button
+    resendBtn.disabled = true;
+    countdownSpan.textContent = seconds;
+    
+    // Countdown interval
+    if (otpCountdownInterval) clearInterval(otpCountdownInterval);
+    
+    otpCountdownInterval = setInterval(() => {
+        seconds--;
+        countdownSpan.textContent = seconds;
+        
+        if (seconds <= 0) {
+            clearInterval(otpCountdownInterval);
+            resendBtn.disabled = false;
+            countdownSpan.textContent = 'Kirim ulang';
+            resendBtn.textContent = 'Kirim Ulang';
+        }
+    }, 1000);
+}
+
+// Handle OTP resend
+function resendOTP() {
+    const resendBtn = document.getElementById('btn-resend');
+    showToast('Kode OTP telah dikirim ulang', 'success');
+    resendBtn.disabled = true;
+    startOTPCountdown();
 }
 
 // ============= DASHBOARD & LOGOUT =============

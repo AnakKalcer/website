@@ -1,7 +1,18 @@
 // ============= DESIGN 01 - INTERACTIVE BANKING APP =============
 
+// Global variable for splash screen timeout
+let splashTimeout;
+
 // Screen Navigation
 function goToScreen(screenId) {
+    console.log('Going to screen:', screenId); // Debug log
+    
+    // Clear any existing splash timeout
+    if (splashTimeout) {
+        clearTimeout(splashTimeout);
+        console.log('Previous splash timeout cleared'); // Debug log
+    }
+    
     // Hide all screens
     const allScreens = document.querySelectorAll('.app-screen');
     allScreens.forEach(screen => {
@@ -12,6 +23,18 @@ function goToScreen(screenId) {
     const targetScreen = document.getElementById(screenId);
     if (targetScreen) {
         targetScreen.classList.add('active-screen');
+        console.log('Screen shown:', screenId); // Debug log
+        
+        // Auto-advance from splash screen to login after 5 seconds
+        if (screenId === 'screen-splash') {
+            console.log('Splash screen shown, starting 5 second timer...'); // Debug log
+            splashTimeout = setTimeout(() => {
+                console.log('5 seconds timeout triggered, going to login'); // Debug log
+                goToScreen('screen-login');
+            }, 5000);
+        }
+    } else {
+        console.error('Screen not found:', screenId); // Error log
     }
 }
 
@@ -80,21 +103,48 @@ function goBackToLogin() {
 
 // Handle Logout
 function handleLogout() {
-    const confirmLogout = confirm('Are you sure you want to logout?');
+    console.log('Logout button clicked'); // Debug log
+    const confirmLogout = confirm('Apakah Anda yakin ingin keluar?');
     
     if (confirmLogout) {
+        console.log('Logout confirmed'); // Debug log
+        
         // Clear localStorage
         localStorage.removeItem('accountNumber');
+        console.log('LocalStorage cleared'); // Debug log
         
-        // Clear all form inputs
-        document.getElementById('account-number').value = '';
-        document.getElementById('otp-code').value = '';
-        document.getElementById('agree-terms').checked = false;
+        // Clear all form inputs - using more specific selectors
+        try {
+            const accountInput = document.getElementById('account-number');
+            const otpInput = document.getElementById('otp-code');
+            const agreeCheckbox = document.getElementById('agree-terms');
+            
+            if (accountInput) {
+                accountInput.value = '';
+                console.log('Account input cleared'); // Debug log
+            }
+            if (otpInput) {
+                otpInput.value = '';
+                console.log('OTP input cleared'); // Debug log
+            }
+            if (agreeCheckbox) {
+                agreeCheckbox.checked = false;
+                console.log('Checkbox cleared'); // Debug log
+            }
+        } catch (e) {
+            console.error('Error clearing inputs:', e);
+        }
         
-        // Return to splash screen
+        console.log('All inputs cleared'); // Debug log
+        
+        // Return to splash screen (which will auto-advance after 5 seconds)
         goToScreen('screen-splash');
         
-        alert('Logged out successfully. See you again!');
+        console.log('Navigated to splash'); // Debug log
+        
+        alert('Berhasil keluar dari akun. Selamat datang kembali!');
+    } else {
+        console.log('Logout cancelled'); // Debug log
     }
 }
 
@@ -126,14 +176,8 @@ if (otpInput) {
 // ============= AUTO-LOAD PREVIOUS SESSION =============
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Check if user has previous session in localStorage
-    const savedAccount = localStorage.getItem('accountNumber');
+    console.log('Page loaded, initializing app'); // Debug log
     
-    // Always start from splash screen
+    // Always start from splash screen (which will auto-advance after 5 seconds)
     goToScreen('screen-splash');
-    
-    // Auto-advance from splash to login after 5 seconds
-    setTimeout(() => {
-        goToScreen('screen-login');
-    }, 5000);
 });

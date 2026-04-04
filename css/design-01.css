@@ -48,14 +48,18 @@ body.app-body {
     margin: 0 auto;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     overflow: hidden;
+    min-height: 600px;
 }
 
 .app-screen {
     width: 100%;
-    display: none;
+    display: none !important;
     flex-direction: column;
     min-height: 600px;
     animation: slideIn 0.3s ease-out;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 @keyframes slideIn {
@@ -70,7 +74,8 @@ body.app-body {
 }
 
 .app-screen.active-screen {
-    display: flex;
+    display: flex !important;
+    position: static;
 }
 
 .app-header {
@@ -768,9 +773,9 @@ body.app-body {
 
 /* ============= DASHBOARD SCREEN ============= */
 #screen-dashboard {
-    padding: 0 !important;
-    overflow-y: auto !important;
-    min-height: auto;
+    padding: 0;
+    overflow-y: auto;
+    min-height: 600px;
 }
 
 /* Dashboard Header */
@@ -824,12 +829,6 @@ body.app-body {
 }
 
 /* Dashboard Header */
-#screen-dashboard {
-    padding: 0 !important;
-    overflow-y: auto !important;
-    min-height: auto;
-}
-
 .dashboard-header {
     background: linear-gradient(135deg, #003DA5 0%, #0052CC 100%);
     color: white;
@@ -1151,6 +1150,8 @@ body.app-body {
     padding: 20px 16px;
     background: #F8FAFB;
     text-align: center;
+    margin-top: auto;
+    border-top: 1px solid #E8ECFF;
 }
 
 .btn-logout {
@@ -1166,11 +1167,22 @@ body.app-body {
     transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    pointer-events: auto;
+    z-index: 100;
 }
 
 .btn-logout:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(255, 71, 87, 0.3);
+}
+
+.btn-logout:active {
+    transform: translateY(0px);
+}
+
+.btn-logout:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 /* ============= RESPONSIVE ============= */

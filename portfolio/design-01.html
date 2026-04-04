@@ -3,220 +3,210 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Design 01 - Digital Banking App - Portfolio Wisnu</title>
-    <link rel="stylesheet" href="../css/styles.css">
+    <title>FinHub - Digital Banking Platform</title>
     <link rel="stylesheet" href="../css/design-01.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">
-                <div class="logo-mark">W</div>
-                <span class="logo-text">START SMALL<br><small>THINK BIG</small></span>
-            </div>
-            <ul class="nav-menu">
-                <li><a href="../index.html#about">About</a></li>
-                <li><a href="../index.html#portfolio">Portfolio</a></li>
-                <li><a href="../skills/technical-skills.html" target="_blank" rel="noopener noreferrer">Technical Skills</a></li>
-                <li><a href="../experience/professional-experience.html" target="_blank" rel="noopener noreferrer">Experience</a></li>
-                <li><a href="../education/education.html" target="_blank" rel="noopener noreferrer">Education</a></li>
-            </ul>
-            <div class="nav-buttons">
-                <button class="btn-schedule">Schedule an interview <span class="arrow">→</span></button>
-                <button class="btn-help">?</button>
+<body class="app-body">
+    <!-- Back to Portfolio Button -->
+    <a href="../index.html#portfolio" class="back-to-portfolio">← Kembali ke Portfolio</a>
+
+    <!-- App Container -->
+    <div class="app-container">
+        <!-- Screen 1: Splash Screen -->
+        <div class="app-screen active-screen" id="screen-splash">
+            <div class="splash-content">
+                <div class="splash-logo">
+                    <div class="logo-circle">F</div>
+                </div>
+                <h1 class="splash-title">FinHub</h1>
+                <p class="splash-subtitle">Layanan Perbankan Digital Terpercaya</p>
+                <div class="loading-animation">
+                    <div class="loading-bar"></div>
+                </div>
             </div>
         </div>
-    </nav>
 
-    <!-- Design 01 Content Section -->
-    <section class="portfolio-detail-section">
-        <div class="portfolio-detail-header">
-            <h1>Design 01</h1>
-            <p class="design-subtitle">Digital Banking Application UI/UX</p>
-            <p class="design-description">Mobile app authentication flow menggunakan BCA-inspired design system dengan tema biru dan putih. Fitur mencakup splash screen, login form, dan OTP verification.</p>
+        <!-- Screen 2: Login Screen -->
+        <div class="app-screen" id="screen-login">
+            <div class="app-header">
+                <h1 class="app-title">Masuk ke Akun Anda</h1>
+            </div>
+
+            <div class="login-content">
+                <div class="login-illustration">
+                    <div class="illustration-icon">👤</div>
+                    <div class="illustration-card">📋</div>
+                </div>
+
+                <h2 class="login-title">Silahkan masuk dengan nomor rekening Anda</h2>
+                
+                <div class="form-group">
+                    <label for="account-number">Nomor Rekening</label>
+                    <input 
+                        type="text" 
+                        id="account-number" 
+                        placeholder="Cth. 123 atau 0123456789"
+                        class="form-input"
+                    >
+                </div>
+
+                <div class="form-checkbox">
+                    <input type="checkbox" id="agree-terms" checked>
+                    <label for="agree-terms">
+                        Saya menyetujui 
+                        <span class="text-primary">syarat, ketentuan</span>, 
+                        dan <span class="text-primary">privasi</span>
+                    </label>
+                </div>
+
+                <button class="btn-login" onclick="handleLogin()">MASUK</button>
+
+                <div class="divider">Atau masuk menggunakan</div>
+
+                <div class="social-buttons">
+                    <button class="btn-social btn-facebook">f Facebook</button>
+                    <button class="btn-social btn-google">🔍 Google</button>
+                </div>
+            </div>
         </div>
 
-        <!-- Mobile Frame Container -->
-        <div class="mobile-container">
-            <!-- Screen 1: Splash Screen -->
-            <div class="mobile-frame active-screen" id="screen-splash">
-                <div class="mobile-header">
-                    <div class="mobile-status-bar">
-                        <span class="time">9:41</span>
-                        <div class="status-icons">
-                            <span>📶</span>
-                            <span>📡</span>
-                            <span>🔋</span>
+        <!-- Screen 3: OTP Verification Screen -->
+        <div class="app-screen" id="screen-verify">
+            <div class="app-header">
+                <button class="btn-back" onclick="goBackToLogin()">← KEMBALI</button>
+            </div>
+
+            <div class="verify-content">
+                <div class="verify-illustration">
+                    <div class="verification-icon">✓</div>
+                </div>
+
+                <h2 class="verify-title">Masukan kode unik yang kami kirim</h2>
+                <p class="verify-subtitle">Silahkan perisa SMS kami dan masukan kode unik yang kami kirimkan untuk verifikasi</p>
+
+                <div class="form-group">
+                    <label for="otp-code">Kode Unik (Hanya angka)</label>
+                    <input 
+                        type="text" 
+                        id="otp-code" 
+                        placeholder="Cth. 123"
+                        class="form-input"
+                        maxlength="6"
+                    >
+                </div>
+
+                <p class="otp-note">💡 Untuk demo, masukan angka apapun (contoh: 123)</p>
+
+                <button class="btn-verify" onclick="handleVerify()">VERIFIKASI</button>
+            </div>
+        </div>
+
+        <!-- Screen 4: Dashboard/Home Screen -->
+        <div class="app-screen" id="screen-dashboard">
+            <!-- Header Section -->
+            <div class="dashboard-header">
+                <div class="header-top">
+                    <div class="welcome-info">
+                        <p class="welcome-time" id="current-time">Hai, Anonim</p>
+                        <p class="welcome-number" id="account-display">08129011XXXX</p>
+                    </div>
+                    <div class="header-icons">
+                        <button class="header-icon-btn"><i class="fas fa-bell"></i></button>
+                        <button class="header-icon-btn"><i class="fas fa-gear"></i></button>
+                    </div>
+                </div>
+
+                <!-- Balance Card -->
+                <div class="balance-card">
+                    <div class="card-top">
+                        <div>
+                            <p class="card-label">Saldo Utama</p>
+                            <p class="card-account">Rekening Tabungan</p>
                         </div>
+                        <span class="bank-badge">Verified</span>
                     </div>
-                    <div class="mobile-notch"></div>
-                </div>
-
-                <div class="mobile-content splash-content">
-                    <div class="splash-logo">
-                        <div class="logo-circle">W</div>
-                    </div>
-                    <h2 class="splash-title">MyBank</h2>
-                    <p class="splash-subtitle">Layanan Perbankan Digital Terpercaya</p>
-                    <div class="loading-animation">
-                        <div class="loading-bar"></div>
-                    </div>
-                </div>
-
-                <div class="mobile-footer"></div>
-            </div>
-
-            <!-- Screen 2: Login Screen -->
-            <div class="mobile-frame" id="screen-login">
-                <div class="mobile-header">
-                    <div class="mobile-status-bar">
-                        <span class="time">9:41</span>
-                        <div class="status-icons">
-                            <span>📶</span>
-                            <span>📡</span>
-                            <span>🔋</span>
+                    <div class="balance-amount">Rp45.250.000</div>
+                    <div class="card-details">
+                        <div class="card-number">
+                            <span class="card-label-small">No. Rekening</span>
+                            <span class="card-number-value">0123456789</span>
                         </div>
-                    </div>
-                    <div class="mobile-notch"></div>
-                </div>
-
-                <div class="mobile-content login-content">
-                    <div class="login-illustration">
-                        <div class="illustration-icon">👤</div>
-                        <div class="illustration-card">📋</div>
-                    </div>
-
-                    <h2 class="login-title">Silahkan masuk dengan nomor rekening Anda</h2>
-                    
-                    <div class="form-group">
-                        <label for="account-number">Nomor Rekening</label>
-                        <input 
-                            type="text" 
-                            id="account-number" 
-                            placeholder="Cth. 0123456789xxxx"
-                            class="form-input"
-                        >
-                    </div>
-
-                    <div class="form-checkbox">
-                        <input type="checkbox" id="agree-terms" checked>
-                        <label for="agree-terms">
-                            Saya menyetujui 
-                            <span class="text-primary">syarat, ketentuan</span>, 
-                            dan <span class="text-primary">privasi</span>
-                        </label>
-                    </div>
-
-                    <button class="btn-login" onclick="nextScreen('screen-login', 'screen-verify')">MASUK</button>
-
-                    <div class="divider">Atau masuk menggunakan</div>
-
-                    <div class="social-buttons">
-                        <button class="btn-social btn-facebook">f Facebook</button>
-                        <button class="btn-social btn-google">🔍 Google</button>
+                        <button class="status-badge">+ Transfer</button>
                     </div>
                 </div>
-
-                <div class="mobile-footer"></div>
             </div>
 
-            <!-- Screen 3: OTP Verification Screen -->
-            <div class="mobile-frame" id="screen-verify">
-                <div class="mobile-header">
-                    <div class="mobile-status-bar">
-                        <span class="time">9:41</span>
-                        <div class="status-icons">
-                            <span>📶</span>
-                            <span>📡</span>
-                            <span>🔋</span>
-                        </div>
-                    </div>
-                    <div class="mobile-notch"></div>
-                </div>
-
-                <div class="mobile-content verify-content">
-                    <button class="btn-back" onclick="prevScreen('screen-verify', 'screen-login')">← KEMBALI</button>
-
-                    <div class="verify-illustration">
-                        <div class="verification-icon">✓</div>
-                    </div>
-
-                    <h2 class="verify-title">Masukan kode unik yang kami kirim</h2>
-                    <p class="verify-subtitle">Silahkan perisa SMS kami dan masukan kode unik yang kami kirimkan ke 08129011xxxx</p>
-
-                    <div class="form-group">
-                        <label for="otp-code">Kode Unik</label>
-                        <input 
-                            type="text" 
-                            id="otp-code" 
-                            placeholder="Cth. q5Tsqh***"
-                            class="form-input"
-                            maxlength="6"
-                        >
-                    </div>
-
-                    <p class="otp-note">❌ Tidak menerima SMS? <span class="text-danger">Kirim Ulang (7 detik)</span></p>
-
-                    <button class="btn-verify" onclick="completeVerification()">VERIFIKASI</button>
-                </div>
-
-                <div class="mobile-footer"></div>
-            </div>
-        </div>
-
-        <!-- Screen Navigation Dots -->
-        <div class="screen-indicators">
-            <div class="indicator active" onclick="goToScreen('screen-splash')"></div>
-            <div class="indicator" onclick="goToScreen('screen-login')"></div>
-            <div class="indicator" onclick="goToScreen('screen-verify')"></div>
-        </div>
-
-        <!-- Description Section -->
-        <div class="design-details">
-            <h3>🎨 Desain Features:</h3>
-            <ul class="design-features">
-                <li><strong>Color Scheme:</strong> Biru profesional (#003DA5) & Putih bersih - terinspirasi dari BCA</li>
-                <li><strong>Splash Screen:</strong> Animasi loading bar dengan logo interaktif</li>
-                <li><strong>Login Form:</strong> Input field yang rapi dengan checkbox terms & social login options</li>
-                <li><strong>OTP Verification:</strong> Formulir verifikasi kode dengan timer dan opsi resend</li>
-                <li><strong>Responsive Mobile:</strong> Simulasi mobile frame dengan notch dan status bar</li>
-                <li><strong>Interactive Navigation:</strong> Slide antar screen dengan smooth transitions</li>
-            </ul>
-
-            <h3>💡 Technology:</h3>
-            <p>HTML5, CSS3 (dengan custom animations), Vanilla JavaScript untuk interaktivitas</p>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-content">
-                <p class="footer-credit">Made with <span class="heart">❤️</span> by Wisnu</p>
-                <div class="social-links">
-                    <a href="https://linkedin.com/in/wisnu" target="_blank" rel="noopener noreferrer" class="social-link" title="LinkedIn">
-                        <span>💼</span>
-                    </a>
-                    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="social-link" title="Facebook">
-                        <span>📘</span>
-                    </a>
-                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-link" title="Instagram">
-                        <span>📷</span>
-                    </a>
-                    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="social-link" title="X (Twitter)">
-                        <span>𝕏</span>
-                    </a>
-                    <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-link" title="GitHub">
-                        <span>🐙</span>
-                    </a>
-                    <a href="https://discord.com" target="_blank" rel="noopener noreferrer" class="social-link" title="Discord">
-                        <span>💬</span>
-                    </a>
+            <!-- Menu Categories -->
+            <div class="menu-section">
+                <h3 class="menu-title">Layanan Perbankan</h3>
+                <div class="menu-grid">
+                    <button class="menu-item">
+                        <span class="menu-icon"><i class="fas fa-arrow-right-arrow-left"></i></span>
+                        <span class="menu-label">Transfer</span>
+                    </button>
+                    <button class="menu-item">
+                        <span class="menu-icon"><i class="fas fa-credit-card"></i></span>
+                        <span class="menu-label">Pembayaran</span>
+                    </button>
+                    <button class="menu-item">
+                        <span class="menu-icon"><i class="fas fa-chart-line"></i></span>
+                        <span class="menu-label">Investasi</span>
+                    </button>
+                    <button class="menu-item">
+                        <span class="menu-icon"><i class="fas fa-percent"></i></span>
+                        <span class="menu-label">Cicilan</span>
+                    </button>
+                    <button class="menu-item">
+                        <span class="menu-icon"><i class="fas fa-wallet"></i></span>
+                        <span class="menu-label">Kartu Kredit</span>
+                    </button>
+                    <button class="menu-item">
+                        <span class="menu-icon"><i class="fas fa-ellipsis"></i></span>
+                        <span class="menu-label">Lainnya</span>
+                    </button>
                 </div>
             </div>
+
+            <!-- Promo Section -->
+            <div class="promo-section">
+                <div class="section-header">
+                    <h3 class="section-title">Penawaran Spesial</h3>
+                    <a href="#" class="lihat-semua">Lihat Semua →</a>
+                </div>
+                <div class="promo-carousel">
+                    <div class="promo-card promo-blue">
+                        <div class="promo-label"><i class="fas fa-chart-line"></i> Investasi Cerdas</div>
+                        <p class="promo-desc">Mulai dari Rp100.000</p>
+                    </div>
+                    <div class="promo-card promo-light">
+                        <div class="promo-label"><i class="fas fa-percent"></i> Cicilan 0%</div>
+                        <p class="promo-desc">Untuk semua produk</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Help Section -->
+            <div class="help-section">
+                <h3 class="section-title">Butuh Bantuan?</h3>
+                <div class="help-grid">
+                    <button class="help-item">
+                        <span class="help-icon"><i class="fas fa-comments"></i></span>
+                        <span class="help-label">Chat Support</span>
+                    </button>
+                    <button class="help-item">
+                        <span class="help-icon"><i class="fas fa-circle-question"></i></span>
+                        <span class="help-label">FAQ</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Bottom Section with Logout -->
+            <div class="dashboard-footer">
+                <button class="btn-logout" onclick="handleLogout()">Keluar Akun</button>
+            </div>
         </div>
-    </footer>
+    </div>
 
     <script src="../js/design-01.js"></script>
 </body>

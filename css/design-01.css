@@ -1,68 +1,67 @@
 /* ============= DESIGN 01 - DIGITAL BANKING APP ============= */
 
-/* Portfolio Detail Header */
-.portfolio-detail-header {
-    text-align: center;
-    margin-bottom: 60px;
-}
-
-.portfolio-detail-header h1 {
-    font-size: 48px;
-    color: #003DA5;
-    margin-bottom: 15px;
-    font-family: 'Georgia', serif;
-    font-weight: 600;
-}
-
-.portfolio-detail-header .design-subtitle {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 15px;
-    font-weight: 600;
-}
-
-.portfolio-detail-header .design-description {
-    font-size: 16px;
-    color: #666;
-    margin-bottom: 20px;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.6;
-}
-
-/* ============= MOBILE CONTAINER & FRAME ============= */
-.mobile-container {
+/* App Body */
+body.app-body {
+    background: #F5F5F5;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    gap: 30px;
-    margin-bottom: 60px;
-    flex-wrap: wrap;
+    justify-content: flex-start;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-top: 60px;
+    padding-bottom: 30px;
 }
 
-.mobile-frame {
-    width: 375px;
-    height: 812px;
+/* Back to Portfolio Button */
+.back-to-portfolio {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    padding: 8px 16px;
+    background: #003DA5;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 61, 165, 0.2);
+}
+
+.back-to-portfolio:hover {
+    background: #0052CC;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 61, 165, 0.3);
+}
+
+/* App Container */
+.app-container {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
     background: white;
-    border-radius: 45px;
-    border: 12px solid #1a1a1a;
-    box-shadow: 0 20px 60px rgba(0, 61, 165, 0.3);
+    border-radius: 0;
+    margin: 0 auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     overflow: hidden;
+}
+
+.app-screen {
+    width: 100%;
     display: none;
     flex-direction: column;
-    position: relative;
+    min-height: 600px;
+    animation: slideIn 0.3s ease-out;
 }
 
-.mobile-frame.active-screen {
-    display: flex;
-    animation: slideInFrame 0.5s ease-out;
-}
-
-@keyframes slideInFrame {
+@keyframes slideIn {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(10px);
     }
     to {
         opacity: 1;
@@ -70,63 +69,22 @@
     }
 }
 
-/* Mobile Header (Notch & Status Bar) */
-.mobile-header {
+.app-screen.active-screen {
+    display: flex;
+}
+
+.app-header {
     background: #003DA5;
     color: white;
-    padding: 0;
-    position: relative;
+    padding: 15px 20px;
+    text-align: center;
 }
 
-.mobile-status-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 20px;
-    font-size: 14px;
+.app-title {
+    font-size: 16px;
     font-weight: 600;
-    height: 44px;
-}
-
-.status-icons {
-    display: flex;
-    gap: 6px;
-    font-size: 12px;
-}
-
-.mobile-notch {
-    height: 28px;
-    background: #003DA5;
-    position: relative;
-}
-
-.mobile-notch::after {
-    content: '';
-    position: absolute;
-    top: 8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 150px;
-    height: 25px;
-    background: #1a1a1a;
-    border-radius: 0 0 25px 25px;
-}
-
-/* Mobile Content Area */
-.mobile-content {
-    flex: 1;
-    padding: 30px 20px;
-    overflow-y: auto;
-    background: white;
-    position: relative;
-    z-index: 1;
-}
-
-/* Mobile Footer */
-.mobile-footer {
-    height: 34px;
-    background: #1a1a1a;
-    border-radius: 0 0 35px 35px;
+    margin: 0;
+    color: white;
 }
 
 /* ============= SPLASH SCREEN ============= */
@@ -138,6 +96,332 @@
     background: linear-gradient(135deg, #003DA5 0%, #0052CC 100%);
     color: white;
     text-align: center;
+    padding: 60px 20px;
+    flex: 1;
+}
+
+.splash-logo {
+    margin-bottom: 25px;
+    animation: logoFloat 2s ease-in-out infinite;
+}
+
+@keyframes logoFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+.logo-circle {
+    width: 70px;
+    height: 70px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 35px;
+    font-weight: bold;
+    color: #003DA5;
+}
+
+.splash-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    font-family: 'Georgia', serif;
+}
+
+.splash-subtitle {
+    font-size: 13px;
+    opacity: 0.9;
+    margin-bottom: 35px;
+    font-weight: 300;
+}
+
+.loading-animation {
+    width: 100%;
+    max-width: 140px;
+}
+
+.loading-bar {
+    width: 100%;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+}
+
+.loading-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 30%;
+    background: white;
+    border-radius: 2px;
+    animation: loading 1.5s ease-in-out infinite;
+}
+
+@keyframes loading {
+    0% { left: 0; }
+    50% { left: 70%; }
+    100% { left: 100%; }
+}
+
+/* ============= LOGIN SCREEN ============= */
+.login-content {
+    padding: 25px 20px;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.login-illustration {
+    position: relative;
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 20px;
+    background: linear-gradient(135deg, #E8F4FF 0%, #CDE7FF 100%);
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.illustration-icon {
+    font-size: 45px;
+    margin-right: 6px;
+}
+
+.illustration-card {
+    font-size: 40px;
+    position: absolute;
+    bottom: -5px;
+    right: -5px;
+    background: white;
+    border-radius: 8px;
+    padding: 2px;
+}
+
+.login-title {
+    font-size: 16px;
+    color: #003DA5;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: center;
+    line-height: 1.4;
+}
+
+/* ============= VERIFY SCREEN ============= */
+.verify-content {
+    padding: 25px 20px;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.btn-back {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.3s ease;
+}
+
+.btn-back:hover {
+    transform: translateX(-5px);
+}
+
+.verify-illustration {
+    width: 80px;
+    height: 80px;
+    margin: 15px auto 20px;
+    background: linear-gradient(135deg, #FFE8E8 0%, #FFD1D1 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.verification-icon {
+    font-size: 40px;
+    color: #D32F2F;
+}
+
+.verify-title {
+    font-size: 16px;
+    color: #003DA5;
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.verify-subtitle {
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+/* ============= FORM STYLES ============= */
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 11px;
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 11px 12px;
+    border: 2px solid #E0E0E0;
+    border-radius: 6px;
+    font-size: 13px;
+    transition: all 0.3s ease;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #003DA5;
+    box-shadow: 0 0 0 3px rgba(0, 61, 165, 0.08);
+}
+
+/* Checkbox */
+.form-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.form-checkbox input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin-top: 2px;
+    cursor: pointer;
+    accent-color: #003DA5;
+    flex-shrink: 0;
+}
+
+.form-checkbox label {
+    margin: 0;
+    font-size: 12px;
+    color: #555;
+    line-height: 1.4;
+    cursor: pointer;
+}
+
+.text-primary {
+    color: #003DA5;
+    font-weight: 600;
+}
+
+.text-danger {
+    color: #D32F2F;
+    font-weight: 600;
+}
+
+/* Buttons */
+.btn-login,
+.btn-verify {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #003DA5 0%, #0052CC 100%);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.btn-login:hover,
+.btn-verify:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 61, 165, 0.25);
+}
+
+.divider {
+    text-align: center;
+    color: #999;
+    font-size: 11px;
+    margin: 16px 0;
+    position: relative;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background: #E0E0E0;
+}
+
+.divider::before { left: 0; }
+.divider::after { right: 0; }
+
+.social-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.btn-social {
+    padding: 10px 12px;
+    border: 2px solid #E0E0E0;
+    background: white;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.btn-social:hover {
+    border-color: #003DA5;
+    background: #F5F9FF;
+}
+
+.otp-note {
+    font-size: 11px;
+    color: #666;
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+/* ============= SPLASH SCREEN ============= */
+.splash-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #003DA5 0%, #0052CC 100%);
+    color: white;
+    text-align: center;
+    padding: 60px 20px;
+    min-height: 600px;
 }
 
 .splash-logo {
@@ -150,26 +434,26 @@
         transform: translateY(0);
     }
     50% {
-        transform: translateY(-20px);
+        transform: translateY(-15px);
     }
 }
 
 .logo-circle {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     background: white;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 50px;
+    font-size: 40px;
     font-weight: bold;
     color: #003DA5;
     margin: 0 auto;
 }
 
 .splash-title {
-    font-size: 36px;
+    font-size: 32px;
     font-weight: 700;
     margin-bottom: 10px;
     font-family: 'Georgia', serif;
@@ -177,14 +461,14 @@
 
 .splash-subtitle {
     font-size: 14px;
-    opacity: 0.9;
+    opacity: 0.95;
     margin-bottom: 40px;
     font-weight: 300;
 }
 
 .loading-animation {
     width: 100%;
-    max-width: 200px;
+    max-width: 150px;
 }
 
 .loading-bar {
@@ -222,15 +506,16 @@
 
 /* ============= LOGIN SCREEN ============= */
 .login-content {
-    display: flex;
-    flex-direction: column;
+    padding: 30px 20px;
+    flex: 1;
+    overflow-y: auto;
 }
 
 .login-illustration {
     position: relative;
-    width: 120px;
-    height: 120px;
-    margin: 0 auto 20px;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 25px;
     background: linear-gradient(135deg, #E8F4FF 0%, #CDE7FF 100%);
     border-radius: 20px;
     display: flex;
@@ -239,18 +524,18 @@
 }
 
 .illustration-icon {
-    font-size: 60px;
-    margin-right: 10px;
+    font-size: 50px;
+    margin-right: 8px;
 }
 
 .illustration-card {
-    font-size: 50px;
+    font-size: 45px;
     position: absolute;
     bottom: -5px;
     right: -5px;
-    background: #FFF;
-    border-radius: 12px;
-    padding: 5px;
+    background: white;
+    border-radius: 10px;
+    padding: 3px;
 }
 
 .login-title {
@@ -262,7 +547,61 @@
     line-height: 1.4;
 }
 
-/* Form Styles */
+/* ============= VERIFY SCREEN ============= */
+.verify-content {
+    padding: 30px 20px;
+    flex: 1;
+    overflow-y: auto;
+}
+
+.btn-back {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.3s ease;
+}
+
+.btn-back:hover {
+    transform: translateX(-5px);
+}
+
+.verify-illustration {
+    width: 90px;
+    height: 90px;
+    margin: 20px auto 25px;
+    background: linear-gradient(135deg, #FFE8E8 0%, #FFD1D1 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.verification-icon {
+    font-size: 45px;
+    color: #D32F2F;
+}
+
+.verify-title {
+    font-size: 18px;
+    color: #003DA5;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.verify-subtitle {
+    font-size: 13px;
+    color: #666;
+    text-align: center;
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
+/* ============= FORM STYLES ============= */
 .form-group {
     margin-bottom: 20px;
 }
@@ -285,6 +624,7 @@
     font-size: 14px;
     transition: all 0.3s ease;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
 }
 
 .form-input:focus {
@@ -311,6 +651,7 @@
     margin-top: 2px;
     cursor: pointer;
     accent-color: #003DA5;
+    flex-shrink: 0;
 }
 
 .form-checkbox label {
@@ -336,7 +677,7 @@
 .btn-login,
 .btn-verify {
     width: 100%;
-    padding: 15px;
+    padding: 14px;
     background: linear-gradient(135deg, #003DA5 0%, #0052CC 100%);
     color: white;
     border: none;
@@ -346,12 +687,13 @@
     letter-spacing: 1px;
     cursor: pointer;
     transition: all 0.3s ease;
+    box-sizing: border-box;
 }
 
 .btn-login:hover,
 .btn-verify:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(0, 61, 165, 0.3);
+    box-shadow: 0 8px 20px rgba(0, 61, 165, 0.25);
 }
 
 .btn-login:active,
@@ -401,6 +743,7 @@
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
+    box-sizing: border-box;
 }
 
 .btn-social:hover {
@@ -416,58 +759,6 @@
     color: #4285F4;
 }
 
-/* ============= VERIFY SCREEN ============= */
-.btn-back {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    background: none;
-    border: none;
-    color: #003DA5;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    margin-bottom: 20px;
-    padding: 0;
-    transition: all 0.3s ease;
-}
-
-.btn-back:hover {
-    transform: translateX(-5px);
-}
-
-.verify-illustration {
-    width: 100px;
-    height: 100px;
-    margin: 0 auto 20px;
-    background: linear-gradient(135deg, #FFE8E8 0%, #FFD1D1 100%);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.verification-icon {
-    font-size: 50px;
-    color: #D32F2F;
-}
-
-.verify-title {
-    font-size: 18px;
-    color: #003DA5;
-    font-weight: 600;
-    margin-bottom: 10px;
-    text-align: center;
-}
-
-.verify-subtitle {
-    font-size: 13px;
-    color: #666;
-    text-align: center;
-    margin-bottom: 25px;
-    line-height: 1.5;
-}
-
 .otp-note {
     font-size: 12px;
     color: #999;
@@ -475,136 +766,474 @@
     margin-bottom: 20px;
 }
 
-/* ============= SCREEN INDICATORS ============= */
-.screen-indicators {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin-bottom: 60px;
+/* ============= DASHBOARD SCREEN ============= */
+#screen-dashboard {
+    padding: 0 !important;
+    overflow-y: auto !important;
+    min-height: auto;
 }
 
-.indicator {
-    width: 12px;
-    height: 12px;
+/* Dashboard Header */
+.dashboard-header {
+    background: linear-gradient(135deg, #003DA5 0%, #0052CC 100%);
+    color: white;
+    padding: 16px 16px 12px;
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.welcome-time {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+}
+
+.welcome-number {
+    font-size: 12px;
+    opacity: 0.85;
+    font-weight: 500;
+    margin-top: 4px;
+}
+
+.header-icons {
+    display: flex;
+    gap: 10px;
+}
+
+.header-icon-btn {
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    color: white;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    background: #E0E0E0;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.header-icon-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(1.1);
+}
+
+/* Dashboard Header */
+#screen-dashboard {
+    padding: 0 !important;
+    overflow-y: auto !important;
+    min-height: auto;
+}
+
+.dashboard-header {
+    background: linear-gradient(135deg, #003DA5 0%, #0052CC 100%);
+    color: white;
+    padding: 18px 16px 16px;
+}
+.balance-card {
+    background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFB 100%);
+    border-radius: 16px;
+    padding: 20px;
+    color: #1a2332;
+    box-shadow: 0 4px 16px rgba(0, 61, 165, 0.08);
+    margin: 16px 16px 0;
+    border: 1px solid #E8ECFF;
+}
+
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+
+.card-label {
+    font-size: 11px;
+    font-weight: 700;
+    margin: 0;
+    color: #7A8BA8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.card-account {
+    font-size: 13px;
+    font-weight: 600;
+    margin: 4px 0 0 0;
+    color: #0052CC;
+}
+
+.bank-badge {
+    background: #E8F4FF;
+    color: #003DA5;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.balance-amount {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0 0 16px 0;
+    color: #0052CC;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 16px;
+    border-top: 1px solid #EAEEF5;
+}
+
+.card-number {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.card-label-small {
+    font-size: 10px;
+    font-weight: 700;
+    color: #7A8BA8;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.card-number-value {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a2332;
+    font-family: 'Courier New', monospace;
+}
+
+.status-badge {
+    background: linear-gradient(135deg, #003DA5 0%, #0052CC 100%);
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
-.indicator.active {
-    background: #003DA5;
-    width: 36px;
-    border-radius: 6px;
+.status-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 61, 165, 0.2);
 }
 
-/* ============= DESIGN DETAILS ============= */
-.design-details {
-    background: #F5F9FF;
-    border: 2px solid #003DA5;
-    border-radius: 15px;
-    padding: 40px;
-    margin-top: 60px;
+.card-expires {
+    font-size: 11px;
+    opacity: 0.85;
 }
 
-.design-details h3 {
-    font-size: 20px;
-    color: #003DA5;
-    margin-bottom: 20px;
+/* Menu Section */
+.menu-section {
+    padding: 20px 16px 24px;
+    border-bottom: 8px solid #F5F5F5;
+    background: white;
+}
+
+.menu-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1a2332;
+    margin: 0 0 16px 0;
+    letter-spacing: -0.3px;
+}
+
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.menu-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    background: #FFFFFF;
+    border: 1.5px solid #E8ECFF;
+    border-radius: 12px;
+    padding: 14px 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 11px;
     font-weight: 600;
+    color: #1a2332;
 }
 
-.design-features {
-    list-style: none;
-    margin-bottom: 30px;
+.menu-item:hover {
+    background: #F0F6FF;
+    border-color: #0052CC;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 82, 204, 0.1);
 }
 
-.design-features li {
-    font-size: 15px;
-    color: #555;
-    margin-bottom: 12px;
-    line-height: 1.6;
-    padding-left: 0;
+.menu-icon {
+    font-size: 24px;
+    color: #0052CC;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.design-features strong {
+.menu-item:hover .menu-icon {
+    transform: scale(1.15) rotate(-5deg);
+}
+
+.menu-label {
+    text-align: center;
+    line-height: 1.2;
+}
+
+/* Promo Section */
+.promo-section {
+    padding: 20px 16px 24px;
+    border-bottom: 8px solid #F5F5F5;
+    background: white;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.section-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1a2332;
+    margin: 0;
+    letter-spacing: -0.3px;
+}
+
+.lihat-semua {
+    font-size: 11px;
+    color: #0052CC;
+    text-decoration: none;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+
+.lihat-semua:hover {
     color: #003DA5;
 }
 
-.design-details p {
-    font-size: 15px;
-    color: #666;
-    line-height: 1.6;
+.promo-carousel {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding-bottom: 8px;
+}
+
+.promo-card {
+    flex: 0 0 calc(50% - 6px);
+    min-width: 150px;
+    border-radius: 12px;
+    padding: 18px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 130px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.promo-blue {
+    background: linear-gradient(135deg, #003DA5 0%, #0052CC 100%);
+}
+
+.promo-light {
+    background: linear-gradient(135deg, #E8F4FF 0%, #D0E8FF 100%);
+    color: #003DA5;
+}
+
+.promo-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 61, 165, 0.15);
+}
+
+.promo-label {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    letter-spacing: -0.2px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.promo-label i {
+    font-size: 16px;
+}
+
+.promo-desc {
+    font-size: 11px;
+    opacity: 0.9;
+    margin: 0;
+    font-weight: 500;
+}
+
+/* Help Section */
+.help-section {
+    padding: 20px 16px 24px;
+    border-bottom: 8px solid #F5F5F5;
+    background: white;
+}
+
+.help-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.help-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    background: #FFFFFF;
+    border: 1.5px solid #E8ECFF;
+    border-radius: 12px;
+    padding: 18px 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 12px;
+    font-weight: 600;
+    color: #1a2332;
+}
+
+.help-item:hover {
+    background: #F0F6FF;
+    border-color: #0052CC;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 82, 204, 0.1);
+}
+
+.help-icon {
+    font-size: 28px;
+    color: #0052CC;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.help-item:hover .help-icon {
+    transform: scale(1.2) bounce;
+}
+
+.help-label {
+    text-align: center;
+    line-height: 1.3;
+}
+
+/* Dashboard Footer */
+.dashboard-footer {
+    padding: 20px 16px;
+    background: #F8FAFB;
+    text-align: center;
+}
+
+.btn-logout {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #FF4757 0%, #FF6348 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-logout:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255, 71, 87, 0.3);
 }
 
 /* ============= RESPONSIVE ============= */
-@media (max-width: 1024px) {
-    .mobile-container {
-        gap: 20px;
-    }
-
-    .mobile-frame {
-        width: 320px;
-        height: 680px;
-    }
-
-    .mobile-content {
-        padding: 20px 15px;
-    }
-}
-
 @media (max-width: 768px) {
-    .portfolio-detail-header h1 {
-        font-size: 36px;
+    body.app-body {
+        padding-top: 55px;
+        padding-bottom: 20px;
     }
 
-    .portfolio-detail-header .design-subtitle {
-        font-size: 18px;
+    .back-to-portfolio {
+        font-size: 12px;
+        padding: 8px 16px;
+        top: 12px;
+        left: 12px;
     }
 
-    .mobile-container {
-        flex-direction: column;
-        gap: 40px;
+    .app-container {
+        max-width: 100%;
     }
 
-    .mobile-frame {
-        width: 100%;
-        max-width: 375px;
-        margin: 0 auto;
+    .balance-card {
+        margin: 12px 12px 0;
     }
 
-    .design-details {
-        padding: 25px 20px;
+    .menu-grid {
+        grid-template-columns: repeat(4, 1fr);
     }
 
-    .design-details h3 {
-        font-size: 18px;
-    }
-
-    .design-features li {
-        font-size: 14px;
+    .help-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media (max-width: 480px) {
-    .portfolio-detail-header h1 {
-        font-size: 28px;
+    body.app-body {
+        padding-top: 50px;
+        padding-bottom: 15px;
     }
 
-    .portfolio-detail-header .design-subtitle {
-        font-size: 16px;
+    .back-to-portfolio {
+        font-size: 11px;
+        padding: 6px 12px;
+        top: 10px;
+        left: 10px;
     }
 
-    .mobile-frame {
-        width: 320px;
-        height: 640px;
-        border-width: 8px;
-        border-radius: 30px;
+    .splash-content {
+        padding: 40px 15px;
     }
 
-    .mobile-content {
-        padding: 15px 12px;
-        font-size: 13px;
+    .logo-circle {
+        width: 60px;
+        height: 60px;
+        font-size: 30px;
+    }
+
+    .splash-title {
+        font-size: 24px;
+    }
+
+    .login-content,
+    .verify-content {
+        padding: 20px 15px;
     }
 
     .login-title,
@@ -616,9 +1245,39 @@
     .btn-login,
     .btn-verify {
         font-size: 13px;
+        padding: 11px 12px;
     }
 
-    .splash-title {
-        font-size: 28px;
+    .menu-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .menu-item {
+        padding: 10px 6px;
+        font-size: 11px;
+    }
+
+    .menu-icon {
+        font-size: 20px;
+    }
+
+    .promo-card {
+        min-width: 130px;
+        padding: 12px;
+        min-height: 100px;
+    }
+
+    .help-item {
+        padding: 12px 10px;
+        font-size: 11px;
+    }
+
+    .help-icon {
+        font-size: 24px;
+    }
+
+    .btn-logout {
+        font-size: 12px;
+        padding: 10px;
     }
 }

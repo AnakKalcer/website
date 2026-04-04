@@ -1,119 +1,106 @@
-// ============= DESIGN 01 - MOBILE SCREEN NAVIGATION =============
+// ============= DESIGN 01 - INTERACTIVE BANKING APP =============
 
-// Get all screen elements
-const screens = {
-    splash: document.getElementById('screen-splash'),
-    login: document.getElementById('screen-login'),
-    verify: document.getElementById('screen-verify')
-};
-
-const indicators = document.querySelectorAll('.indicator');
-const screenOrder = ['screen-splash', 'screen-login', 'screen-verify'];
-
-// Navigate to specific screen
+// Screen Navigation
 function goToScreen(screenId) {
-    // Remove active class from all screens
-    Object.values(screens).forEach(screen => {
-        if (screen) {
-            screen.classList.remove('active-screen');
-        }
+    // Hide all screens
+    const allScreens = document.querySelectorAll('.app-screen');
+    allScreens.forEach(screen => {
+        screen.classList.remove('active-screen');
     });
-
-    // Update indicators
-    indicators.forEach((indicator, index) => {
-        indicator.classList.remove('active');
-        if (screenOrder[index] === screenId) {
-            indicator.classList.add('active');
-        }
-    });
-
-    // Add active class to selected screen
-    const screen = document.getElementById(screenId);
-    if (screen) {
-        screen.classList.add('active-screen');
+    
+    // Show target screen
+    const targetScreen = document.getElementById(screenId);
+    if (targetScreen) {
+        targetScreen.classList.add('active-screen');
     }
 }
 
-// Next screen navigation
-function nextScreen(currentId, nextId) {
-    // Validate input before transitioning
-    const currentScreen = currentId.replace('screen-', '');
-    
-    // Add simple validation
-    if (currentId === 'screen-login') {
-        const accountNumber = document.getElementById('account-number').value;
-        const agreeTerms = document.getElementById('agree-terms').checked;
-        
-        if (!accountNumber.trim()) {
-            alert('Please enter your account number');
-            return;
-        }
-        
-        if (!agreeTerms) {
-            alert('Please agree to terms and conditions');
-            return;
-        }
-    }
-    
-    if (currentId === 'screen-verify') {
-        const otpCode = document.getElementById('otp-code').value;
-        
-        if (!otpCode.trim()) {
-            alert('Please enter OTP code');
-            return;
-        }
-    }
+// ============= LOGIN FLOW =============
 
-    goToScreen(nextId);
-}
-
-// Previous screen navigation
-function prevScreen(currentId, prevId) {
-    goToScreen(prevId);
-}
-
-// Complete verification
-function completeVerification() {
-    const otpCode = document.getElementById('otp-code').value;
+// Handle Login Form Submit
+function handleLogin() {
+    const accountNumber = document.getElementById('account-number').value.trim();
+    const agreeTerms = document.getElementById('agree-terms').checked;
     
-    if (!otpCode.trim() || otpCode.length < 6) {
-        alert('Please enter a valid OTP code');
+    // Validation
+    if (!accountNumber) {
+        alert('Please enter your account number');
         return;
     }
     
-    // Show success message
-    alert('Verification successful! ✓\n\nWelcome to MyBank Digital Banking Platform');
+    if (!agreeTerms) {
+        alert('Please agree to terms and conditions');
+        return;
+    }
     
-    // Reset form and go back to splash
-    document.getElementById('account-number').value = '';
+    // Save account number to localStorage for session
+    localStorage.setItem('accountNumber', accountNumber);
+    
+    // Navigate to OTP verification screen
+    goToScreen('screen-verify');
+}
+
+// ============= VERIFICATION FLOW =============
+
+// Handle OTP Verification
+function handleVerify() {
+    const otpCode = document.getElementById('otp-code').value.trim();
+    
+    // Validation
+    if (!otpCode) {
+        alert('Please enter OTP code');
+        return;
+    }
+    
+    // For demo: any number is accepted as valid OTP
+    // In production, this would be sent to backend for verification
+    
+    // Show success and navigate to dashboard
+    alert('OTP Verified Successfully! ✓');
+    
+    // Update dashboard with account info
+    const accountNumber = localStorage.getItem('accountNumber');
+    if (accountNumber) {
+        document.getElementById('account-display').textContent = accountNumber.substring(0, 4) + '****' + accountNumber.substring(accountNumber.length - 2);
+        document.getElementById('current-time').textContent = 'Hai, Anonim';
+    }
+    
+    // Navigate to dashboard
+    goToScreen('screen-dashboard');
+}
+
+// Back button from verify to login
+function goBackToLogin() {
+    // Clear OTP input
     document.getElementById('otp-code').value = '';
-    document.getElementById('agree-terms').checked = true;
-    goToScreen('screen-splash');
+    goToScreen('screen-login');
 }
 
-// Auto-transition from splash to login after 2 seconds on page load
-window.addEventListener('load', function() {
-    // Optional: Uncomment to auto-advance from splash screen
-    // setTimeout(() => {
-    //     goToScreen('screen-login');
-    // }, 2000);
-});
+// ============= DASHBOARD & LOGOUT =============
 
-// Keyboard support for OTP input
-const otpInput = document.getElementById('otp-code');
-if (otpInput) {
-    otpInput.addEventListener('input', function(e) {
-        // Only allow alphanumeric characters
-        this.value = this.value.replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
+// Handle Logout
+function handleLogout() {
+    const confirmLogout = confirm('Are you sure you want to logout?');
+    
+    if (confirmLogout) {
+        // Clear localStorage
+        localStorage.removeItem('accountNumber');
         
-        // Auto-focus next field if max length reached
-        if (this.value.length >= 6) {
-            // Could trigger verification automatically
-        }
-    });
+        // Clear all form inputs
+        document.getElementById('account-number').value = '';
+        document.getElementById('otp-code').value = '';
+        document.getElementById('agree-terms').checked = false;
+        
+        // Return to splash screen
+        goToScreen('screen-splash');
+        
+        alert('Logged out successfully. See you again!');
+    }
 }
 
-// Account number formatting
+// ============= INPUT FORMATTING =============
+
+// Account number input - numbers only
 const accountInput = document.getElementById('account-number');
 if (accountInput) {
     accountInput.addEventListener('input', function(e) {
@@ -121,3 +108,32 @@ if (accountInput) {
         this.value = this.value.replace(/[^0-9]/g, '');
     });
 }
+
+// OTP input - alphanumeric, max 6 characters
+const otpInput = document.getElementById('otp-code');
+if (otpInput) {
+    otpInput.addEventListener('input', function(e) {
+        // Only allow alphanumeric characters
+        this.value = this.value.replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
+        
+        // Limit to 6 characters
+        if (this.value.length > 6) {
+            this.value = this.value.slice(0, 6);
+        }
+    });
+}
+
+// ============= AUTO-LOAD PREVIOUS SESSION =============
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if user has previous session in localStorage
+    const savedAccount = localStorage.getItem('accountNumber');
+    
+    // Always start from splash screen
+    goToScreen('screen-splash');
+    
+    // Auto-advance from splash to login after 5 seconds
+    setTimeout(() => {
+        goToScreen('screen-login');
+    }, 5000);
+});

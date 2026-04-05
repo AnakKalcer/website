@@ -544,8 +544,66 @@
     scrollbar-color: #DDD transparent;
 }
 
+/* ============= MOBILE DEVICE SIZING ============= */
+
+/* Actual Mobile Phones (< 768px) - Full Width Responsive */
+@media (max-width: 767px) {
+    #screen-dashboard {
+        width: 100%;
+        height: 100%;
+    }
+    
+    .dashboard-container {
+        width: 100%;
+        height: 100%;
+    }
+    
+    .dashboard-scroll {
+        width: 100%;
+    }
+}
+
+/* Tablets & Large Screens (>= 768px) - Fixed Mobile Size */
+@media (min-width: 768px) {
+    #screen-dashboard {
+        width: 390px;
+        max-width: 390px;
+        height: 100%;
+    }
+    
+    .dashboard-container {
+        width: 390px;
+        max-width: 390px;
+        height: 100%;
+    }
+    
+    .dashboard-scroll {
+        width: 390px;
+        max-width: 390px;
+    }
+}
+
 /* Web/Desktop Override for Scrolling */
 @media (min-width: 481px) {
+    #screen-dashboard {
+        height: calc(100vh - 140px);
+    }
+
+    .dashboard-container {
+        height: 100%;
+        max-height: calc(100vh - 140px);
+    }
+
+    .dashboard-scroll {
+        height: calc(100% - 80px);
+        max-height: calc(100vh - 220px);
+    }
+
+    .bottom-nav {
+        position: fixed;
+        bottom: 30px;
+    }
+}
     #screen-dashboard {
         height: calc(100vh - 140px);
     }

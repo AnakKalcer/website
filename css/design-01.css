@@ -5,8 +5,8 @@ body.app-body {
     background: #F5F5F5;
     margin: 0;
     padding: 0;
-    min-height: 100vh;
-    max-height: 100vh;
+    width: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -15,7 +15,9 @@ body.app-body {
     padding-top: 60px;
     padding-bottom: 0;
     overflow: hidden;
-    overflow-x: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
 }
 
 /* Back to Portfolio Button */
@@ -43,22 +45,22 @@ body.app-body {
 
 /* App Container */
 .app-container {
-    position: fixed;
-    top: 60px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: calc(100% - 20px);
-    max-width: 480px;
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: none;
+    width: 100%;
+    max-width: 100%;
     height: calc(100vh - 60px);
-    max-height: 720px;
+    max-height: none;
     background: white;
     border-radius: 0;
-    margin: 0 auto;
+    margin: 0;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    flex-grow: 0;
+    flex-grow: 1;
     flex-shrink: 0;
 }
 
@@ -89,7 +91,7 @@ body.app-body {
 
 .app-screen.active-screen {
     display: flex !important;
-    position: static;
+    position: relative;
     height: 100%;
     width: 100%;
     overflow: hidden;
@@ -115,14 +117,14 @@ body.app-body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #003DA5 0%, #0052CC 100%);
+    background: linear-gradient(135deg, #FF6B35 0%, #EC2028 100%);
     color: white;
     text-align: center;
-    padding: 20px;
+    padding: 0;
     height: 100%;
     width: 100%;
     overflow: hidden;
-    gap: 20px;
+    gap: 15px;
 }
 
 .splash-logo {
@@ -2487,11 +2489,15 @@ select.form-input:focus {
     }
 
     .app-container {
-        width: calc(100% - 10px);
-        max-width: none;
-        top: 50px;
+        width: 100%;
+        max-width: 100%;
+        top: 0;
+        left: 0;
+        transform: none;
         height: calc(100vh - 50px);
-        margin: 0 5px;
+        max-height: none;
+        margin: 0;
+        position: relative;
     }
 
     .balance-card {
@@ -2508,9 +2514,9 @@ select.form-input:focus {
     }
 
     .splash-content {
-        padding: 20px;
+        padding: 0;
         justify-content: center;
-        gap: 20px;
+        gap: 15px;
     }
 
     .splash-logo {
@@ -2520,13 +2526,13 @@ select.form-input:focus {
     }
 
     .telkomsel-logo-img {
-        width: 100px;
-        height: 100px;
+        width: 90px;
+        height: 90px;
     }
 
     .loading-animation {
         margin: 0;
-        max-width: 130px;
+        max-width: 120px;
     }
 
     .splash-title {
@@ -2586,7 +2592,14 @@ select.form-input:focus {
     }
 
     .app-container {
+        width: 100%;
         max-width: 100%;
+        height: calc(100vh - 55px);
+        max-height: none;
+        position: relative;
+        top: 0;
+        left: 0;
+        transform: none;
     }
 
     .balance-card {
@@ -2605,7 +2618,7 @@ select.form-input:focus {
 @media (max-width: 480px) {
     body.app-body {
         padding-top: 50px;
-        padding-bottom: 15px;
+        padding-bottom: 0;
     }
 
     .back-to-portfolio {
@@ -2615,16 +2628,32 @@ select.form-input:focus {
         left: 10px;
     }
 
+    .app-container {
+        width: 100%;
+        max-width: 100%;
+        height: calc(100vh - 50px);
+        max-height: none;
+        position: relative;
+        top: 0;
+        left: 0;
+        transform: none;
+    }
+
     .splash-content {
-        padding: 20px;
+        padding: 0;
         justify-content: center;
-        gap: 20px;
+        gap: 15px;
     }
 
     .splash-logo {
         margin-top: 0;
         width: auto;
         padding: 0;
+    }
+
+    .telkomsel-logo-img {
+        width: 85px;
+        height: 85px;
     }
 
     .logo-circle {
@@ -2635,7 +2664,7 @@ select.form-input:focus {
 
     .loading-animation {
         margin: 0;
-        max-width: 120px;
+        max-width: 110px;
     }
 
     .splash-title {

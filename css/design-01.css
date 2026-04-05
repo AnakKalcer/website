@@ -113,26 +113,27 @@ body.app-body {
 .splash-content {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     background: linear-gradient(135deg, #003DA5 0%, #0052CC 100%);
     color: white;
     text-align: center;
-    padding: 0;
+    padding: 20px;
     height: 100%;
     width: 100%;
     overflow: hidden;
+    gap: 20px;
 }
 
 .splash-logo {
     margin-bottom: 0;
-    margin-top: 50px;
+    margin-top: 0;
     flex-shrink: 0;
-    width: 100%;
+    width: auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 20px;
+    padding: 0;
     box-sizing: border-box;
 }
 
@@ -180,15 +181,16 @@ body.app-body {
 
 .loading-animation {
     width: 100%;
-    max-width: 140px;
-    margin-top: 50px;
-    margin-bottom: 80px;
+    max-width: 150px;
+    margin-top: 0;
+    margin-bottom: 0;
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
-    padding: 0 20px;
+    justify-content: center;
+    gap: 10px;
+    padding: 0;
     box-sizing: border-box;
 }
 
@@ -217,6 +219,15 @@ body.app-body {
     0% { left: 0; }
     50% { left: 70%; }
     100% { left: 100%; }
+}
+
+.loading-text {
+    font-size: 14px;
+    font-weight: 400;
+    color: white;
+    opacity: 0.9;
+    margin: 0;
+    letter-spacing: 0.5px;
 }
 
 /* ============= LOGIN SCREEN ============= */
@@ -2497,20 +2508,25 @@ select.form-input:focus {
     }
 
     .splash-content {
-        padding: 0;
-        justify-content: flex-start;
+        padding: 20px;
+        justify-content: center;
+        gap: 20px;
     }
 
     .splash-logo {
-        margin-top: 35px;
-        width: 100%;
-        padding: 0 15px;
-        box-sizing: border-box;
+        margin-top: 0;
+        width: auto;
+        padding: 0;
     }
 
     .telkomsel-logo-img {
         width: 100px;
         height: 100px;
+    }
+
+    .loading-animation {
+        margin: 0;
+        max-width: 130px;
     }
 
     .splash-title {
@@ -2600,21 +2616,26 @@ select.form-input:focus {
     }
 
     .splash-content {
-        padding: 0;
-        justify-content: flex-start;
+        padding: 20px;
+        justify-content: center;
+        gap: 20px;
     }
 
     .splash-logo {
-        margin-top: 38px;
-        width: 100%;
-        padding: 0 15px;
-        box-sizing: border-box;
+        margin-top: 0;
+        width: auto;
+        padding: 0;
     }
 
     .logo-circle {
         width: 60px;
         height: 60px;
         font-size: 30px;
+    }
+
+    .loading-animation {
+        margin: 0;
+        max-width: 120px;
     }
 
     .splash-title {

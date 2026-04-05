@@ -566,6 +566,93 @@
     }
 }
 
+/* Responsive & Mobile - Very Small Screens (Zoomed Out) */
+@media (max-width: 600px) {
+    .dashboard-header-new {
+        padding: 15px 15px;
+    }
+
+    .welcome-text {
+        font-size: 14px;
+        margin: 0 0 6px 0;
+    }
+
+    .welcome-number {
+        font-size: 16px;
+    }
+
+    .header-badge {
+        font-size: 10px;
+        padding: 4px 8px;
+    }
+
+    .balance-card {
+        margin: 8px 10px 0;
+        padding: 15px 15px;
+    }
+
+    .balance-label {
+        font-size: 12px;
+    }
+
+    .balance-amount {
+        font-size: 20px;
+        font-weight: 700;
+    }
+
+    .btn-isi-pulsa {
+        font-size: 12px;
+        padding: 8px 12px;
+    }
+
+    .quota-section {
+        padding: 12px 10px;
+        gap: 8px;
+    }
+
+    .quota-item {
+        padding: 10px;
+    }
+
+    .quota-label {
+        font-size: 11px;
+    }
+
+    .quota-value {
+        font-size: 14px;
+    }
+
+    .menu-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        padding: 10px;
+    }
+
+    .menu-item-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .menu-item-text {
+        font-size: 11px;
+        line-height: 1.2;
+    }
+
+    .promo-section-title {
+        font-size: 14px;
+        padding: 10px 10px 5px;
+    }
+
+    .promo-card {
+        font-size: 12px;
+        padding: 12px;
+    }
+
+    .dashboard-scroll {
+        height: calc(100% - 50px);
+    }
+}
+
 /* Responsive & Mobile */
 @media (max-width: 480px) {
     .app-screen {

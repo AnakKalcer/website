@@ -406,7 +406,7 @@ body.app-body {
 }
 
 .verify-person-wrapper {
-    width: 100%;
+    width: 50%;
     height: auto;
     display: flex;
     align-items: center;
@@ -416,7 +416,7 @@ body.app-body {
 }
 
 .verify-person-svg {
-    width: 60%;
+    width: 50%;
     max-width: 280px;
     height: auto;
     object-fit: contain;
@@ -467,8 +467,8 @@ body.app-body {
     
     .login-person-svg,
     .verify-person-svg {
-        width: 70%;
-        max-width: 250px;
+        width: 50%;
+        max-width: 200px;
         max-height: 200px;
     }
     

@@ -16,7 +16,7 @@ function goToScreen(screenId) {
     // Hide all screens
     const allScreens = document.querySelectorAll('.app-screen');
     allScreens.forEach(screen => {
-        screen.classList.remove('active-screen');
+        screen  .classList.remove('active-screen');
     });
     
     // Show target screen

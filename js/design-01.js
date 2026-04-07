@@ -60,21 +60,23 @@ function goToScreen(screenId) {
 
 // Handle Login Form Submit
 function handleLogin() {
+    console.log('handleLogin called'); // Debug
     const accountNumber = document.getElementById('account-number').value.trim();
     const agreeTerms = document.getElementById('agree-terms').checked;
     
-    // Phone number validation (MSISDN format)
+    console.log('Phone number:', accountNumber, 'Terms agreed:', agreeTerms); // Debug
+    
+    // Phone number validation
     if (!accountNumber) {
         showToast('Masukkan nomor telepon Anda', 'error');
         return;
     }
     
-    // Validate phone format: +62 or 08, followed by 9-11 digits
-    const phoneRegex = /^(\+62|08)\d{9,11}$/;
-    const cleanedPhone = accountNumber.replace(/\D/g, '');
+    // Validate phone format: Must start with 08 or +62 and have at least 8 digits total
+    const phoneRegex = /^(08|\+62)\d{8,}$/;
     
-    if (!phoneRegex.test(accountNumber) && !phoneRegex.test('08' + cleanedPhone.substring(1))) {
-        showToast('Format nomor telepon tidak valid (gunakan +62 atau 08)', 'error');
+    if (!phoneRegex.test(accountNumber)) {
+        showToast('Format nomor telepon tidak valid (gunakan 08 atau +62)', 'error');
         return;
     }
     
@@ -83,22 +85,29 @@ function handleLogin() {
         return;
     }
     
+    console.log('All validation passed'); // Debug
+    
     // Save phone number to localStorage for session
     localStorage.setItem('accountNumber', accountNumber);
     
-    // Display phone number on OTP screen
-    document.getElementById('otp-phone-number').textContent = `Kode verifikasi dikirim ke ${accountNumber}`;
+    // Display phone number on verify screen
+    document.getElementById('otp-phone-number').textContent = accountNumber;
     
     // Start OTP resend countdown
     startOTPCountdown();
     
-    // Navigate to OTP verification screen
+    console.log('Navigating to screen-verify'); // Debug
+    
+    // Navigate to verification screen
     goToScreen('screen-verify');
     
-    // Focus on first OTP input
+    // Focus on unique code input
     setTimeout(() => {
-        const firstOTPBox = document.querySelector('.otp-box');
-        if (firstOTPBox) firstOTPBox.focus();
+        const codeInput = document.getElementById('unique-code');
+        if (codeInput) {
+            codeInput.focus();
+            console.log('Focus set to unique-code input'); // Debug
+        }
     }, 100);
 }
 

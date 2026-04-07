@@ -324,10 +324,23 @@ body.app-body {
     padding: 14px;
     border-radius: 10px;
     border: none;
-    background: #d1d5db;
-    color: #6b7280;
+    background: #0052CC;
+    color: white;
     font-weight: 600;
     font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.login-button:hover {
+    background: #003DA5;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 52, 165, 0.25);
+}
+
+.login-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(0, 52, 165, 0.15);
 }
 
 /* SOCIAL LOGIN */
@@ -350,6 +363,12 @@ body.app-body {
     background: white;
     font-weight: 500;
     cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.login-social button:hover {
+    background: #f3f4f6;
+    border-color: #9ca3af;
 }
 
 /* ============= VERIFICATION SCREEN ============= */

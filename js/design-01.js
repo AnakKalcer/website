@@ -106,28 +106,28 @@ function handleLogin() {
 
 // Handle OTP Verification
 function handleVerify() {
-    const otpBoxes = document.querySelectorAll('.otp-box');
-    let otpCode = '';
-    
-    // Collect all OTP digit inputs
-    otpBoxes.forEach(box => {
-        otpCode += box.value;
-    });
+    const uniqueCodeInput = document.getElementById('unique-code');
+    const uniqueCode = uniqueCodeInput.value.trim();
     
     // Validation
-    if (otpCode.length < 4) {
-        showToast('Masukkan 4 digit kode verifikasi', 'error');
+    if (!uniqueCode) {
+        showToast('Masukkan kode unik Anda', 'error');
         return;
     }
     
-    // For demo: any number is accepted as valid OTP
+    if (uniqueCode.length < 3) {
+        showToast('Kode unik harus minimal 3 karakter', 'error');
+        return;
+    }
+    
+    // For demo: any non-empty code is accepted as valid
     // In production, this would be sent to backend for verification
     
     // Show success and navigate to dashboard
-    showToast('OTP Berhasil Diverifikasi! ✓', 'success');
+    showToast('Kode Berhasil Diverifikasi! ✓', 'success');
     
-    // Clear OTP boxes for next login
-    otpBoxes.forEach(box => box.value = '');
+    // Clear unique code input for next login
+    uniqueCodeInput.value = '';
     
     // Initialize CRUD data if not exists
     initializeCRUDData();
@@ -142,8 +142,11 @@ function handleVerify() {
 
 // Back button from verify to login
 function goBackToLogin() {
-    // Clear OTP inputs
-    document.querySelectorAll('.otp-box').forEach(box => box.value = '');
+    // Clear unique code input
+    const uniqueCodeInput = document.getElementById('unique-code');
+    if (uniqueCodeInput) {
+        uniqueCodeInput.value = '';
+    }
     
     // Clear countdown timer
     if (window.otpCountdownInterval) {

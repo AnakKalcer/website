@@ -430,6 +430,7 @@ body.app-body {
     align-items: center;
     padding: 0;
     box-sizing: border-box;
+    text-align: center;
 }
 
 .verify-title-overlay {
@@ -476,6 +477,7 @@ body.app-body {
         width: 100%;
         max-width: 100%;
         align-items: center;
+        text-align: center;
     }
 
     .btn-back-top {
@@ -489,44 +491,77 @@ body.app-body {
         width: 100%;
     }
 
+    .verify-subtitle {
+        text-align: center;
+        width: 100%;
+    }
+
     .form-group {
         align-items: center;
+        width: 100%;
+    }
+
+    .form-input {
+        width: 100%;
+    }
+
+    .btn-login,
+    .btn-verify {
+        width: 100%;
     }
 }
 
 /* Media Query: Desktop - Add proper max-width to content */
 @media (min-width: 768px) {
-    #screen-login,
-    #screen-verify {
+    #screen-login {
         padding: 24px;
         flex-direction: row;
         align-items: flex-start;
     }
+
+    #screen-verify {
+        padding: 24px;
+        flex-direction: column;
+        align-items: center;
+    }
     
-    .login-person-wrapper,
-    .verify-person-wrapper {
+    .login-person-wrapper {
         width: 120px;
         height: auto;
         margin-bottom: 0;
     }
+
+    .verify-person-wrapper {
+        width: 100%;
+        height: auto;
+        margin-bottom: 16px;
+    }
     
-    .login-person-svg,
-    .verify-person-svg {
+    .login-person-svg {
         width: 120px;
         max-width: 120px;
         max-height: 500px;
     }
+
+    .verify-person-svg {
+        width: 60%;
+        max-width: 250px;
+        max-height: 300px;
+    }
     
-    .login-content,
-    .verify-content {
+    .login-content {
         max-width: 350px;
         padding: 0;
         flex: 1;
         align-items: stretch;
     }
 
-    .verify-person-wrapper {
-        margin-top: 0;
+    .verify-content {
+        width: 100%;
+        max-width: 600px;
+        padding: 0;
+        align-items: center;
+        text-align: center;
     }
 }
 
@@ -646,6 +681,7 @@ body.app-body {
     text-align: center;
     width: 100%;
     box-sizing: border-box;
+    line-height: 1.5;
 }
 
 .verify-subtitle {
@@ -656,6 +692,7 @@ body.app-body {
     width: 100%;
     box-sizing: border-box;
     line-height: 1.5;
+    display: block;
 }
 
 /* ============= FORM STYLES ============= */
@@ -665,7 +702,7 @@ body.app-body {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    align-items: stretch;
+    align-items: center;
     max-width: 100%;
 }
 
@@ -809,8 +846,9 @@ body.app-body {
     font-size: 13px;
     color: #1E272E;
     text-align: center;
-    margin: 8px 0;
+    margin: 8px auto;
     width: 100%;
+    display: block;
 }
 
 .btn-resend-link {
@@ -1229,22 +1267,6 @@ body.app-body {
 .verification-icon {
     font-size: 45px;
     color: #D32F2F;
-}
-
-.verify-title {
-    font-size: 18px;
-    color: #003DA5;
-    font-weight: 600;
-    margin-bottom: 10px;
-    text-align: center;
-}
-
-.verify-subtitle {
-    font-size: 13px;
-    color: #666;
-    text-align: center;
-    margin-bottom: 25px;
-    line-height: 1.5;
 }
 
 /* ============= FORM STYLES ============= */

@@ -165,54 +165,45 @@ function goBackToLogin() {
     goToScreen('screen-login');
 }
 
-// Auto-focus next OTP box when digit is entered
+// Auto-focus OTP input when digit is entered (not used for unique-code input)
 function focusNextOTP(element) {
     // Only allow numbers
     element.value = element.value.replace(/[^0-9]/g, '');
-    
-    if (element.value.length > 0) {
-        const index = parseInt(element.getAttribute('data-index'));
-        const otpBoxes = document.querySelectorAll('.otp-box');
-        
-        // Move to next box if available
-        if (index < otpBoxes.length - 1) {
-            otpBoxes[index + 1].focus();
-        }
-    }
+    // Function deprecated - using single unique-code input now instead of multiple OTP boxes
 }
 
 // Start OTP resend countdown timer
 let otpCountdownInterval;
 function startOTPCountdown() {
-    const resendBtn = document.getElementById('btn-resend');
-    const countdownSpan = document.getElementById('countdown');
-    let seconds = 30;
+    const resendBtn = document.querySelector('.btn-resend-link');
+    if (!resendBtn) {
+        console.log('Resend button not found');
+        return;
+    }
     
-    // Disable resend button
+    let seconds = 30;
     resendBtn.disabled = true;
-    countdownSpan.textContent = seconds;
+    resendBtn.style.opacity = '0.5';
+    resendBtn.style.cursor = 'not-allowed';
     
     // Countdown interval
     if (otpCountdownInterval) clearInterval(otpCountdownInterval);
     
     otpCountdownInterval = setInterval(() => {
         seconds--;
-        countdownSpan.textContent = seconds;
         
         if (seconds <= 0) {
             clearInterval(otpCountdownInterval);
             resendBtn.disabled = false;
-            countdownSpan.textContent = 'Kirim ulang';
-            resendBtn.textContent = 'Kirim Ulang';
+            resendBtn.style.opacity = '1';
+            resendBtn.style.cursor = 'pointer';
         }
     }, 1000);
 }
 
 // Handle OTP resend
 function resendOTP() {
-    const resendBtn = document.getElementById('btn-resend');
-    showToast('Kode OTP telah dikirim ulang', 'success');
-    resendBtn.disabled = true;
+    showToast('Kode telah dikirim ulang ke nomor Anda', 'success');
     startOTPCountdown();
 }
 

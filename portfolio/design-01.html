@@ -22,20 +22,16 @@
 
         <!-- Screen 2: Login Screen -->
         <div class="app-screen" id="screen-login">
-            <div class="app-header telkomsel-header">
-                <h1 class="app-title">Masuk dengan Nomor Telepon</h1>
-            </div>
-
             <div class="login-content">
-                <div class="login-illustration telkomsel-illustration">
-                    <img src="../telkomsel/person1.svg" alt="Login Illustration" class="illustration-img"/>
+                <div class="login-illustration">
+                    <div class="illustration-icon">👤</div>
+                    <div class="illustration-card">📱</div>
                 </div>
 
-                <h2 class="login-title">Masukkan Nomor Telepon Anda</h2>
-                <p class="login-subtitle">Format: 08xxx atau +62xxx</p>
-                
+                <h2 class="login-title">Silahkan masuk dengan nomor telkomsel kamu</h2>
+
                 <div class="form-group">
-                    <label for="account-number">Nomor Telepon (MSISDN)</label>
+                    <label for="account-number">Nomor HP</label>
                     <div class="phone-input-wrapper">
                         <span class="phone-prefix" id="phone-prefix">+62</span>
                         <input 
@@ -53,8 +49,8 @@
                     <input type="checkbox" id="agree-terms" checked>
                     <label for="agree-terms">
                         Saya menyetujui 
-                        <span class="text-primary">syarat & ketentuan</span> 
-                        dan <span class="text-primary">kebijakan privasi</span>
+                        <span class="text-primary">syarat, ketentuan</span> 
+                        dan <span class="text-primary">privasi</span>
                     </label>
                 </div>
 
@@ -66,17 +62,13 @@
 
         <!-- Screen 3: OTP Verification Screen -->
         <div class="app-screen" id="screen-verify">
-            <div class="app-header telkomsel-header">
-                <button class="btn-back" onclick="goBackToLogin()">← KEMBALI</button>
-            </div>
-
             <div class="verify-content">
                 <div class="verify-illustration">
-                    <img src="../telkomsel/person2.svg" alt="OTP Illustration" class="illustration-img"/>
+                    <div class="verification-icon">🔐</div>
                 </div>
 
-                <h2 class="verify-title">Verifikasi Nomor Telepon</h2>
-                <p class="verify-subtitle" id="otp-phone-number">Kode verifikasi telah dikirim ke nomor Anda</p>
+                <h2 class="verify-title">Masukan kode unik yang kami kirim</h2>
+                <p class="verify-subtitle">Silahkan periksa SMS kami dan masukan kode unik yang kami kirimkan ke <span id="otp-phone-number">08129011XXXX</span></p>
 
                 <div class="otp-input-group">
                     <label>Masukkan Kode Verifikasi (4 digit)</label>
@@ -96,11 +88,15 @@
                 </div>
 
                 <button class="btn-verify telkomsel-verify" onclick="handleVerify()">VERIFIKASI</button>
+                <button class="btn-back-verify" onclick="goBackToLogin()">← KEMBALI</button>
             </div>
         </div>
 
         <!-- Screen 4: Dashboard/Home Screen -->
         <div class="app-screen" id="screen-dashboard">
+            <div class="dashboard-bg-wrapper">
+                <img src="../telkomsel/Home.svg" alt="Dashboard Background" class="dashboard-bg"/>
+            </div>
             <div class="dashboard-container">
                 <!-- Header with Profile & Badge -->
                 <div class="dashboard-header-new">

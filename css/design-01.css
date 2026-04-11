@@ -1459,36 +1459,196 @@ body.app-body {
 /* ============= DASHBOARD SCREEN ============= */
 #screen-dashboard {
     padding: 0;
-    overflow-y: auto;
-    min-height: 600px;
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 375px;
+    height: 812px;
+    overflow: hidden;
 }
 
 /* Dashboard Background */
-.dashboard-bg-wrapper {
+.dashboard-header-bg {
+    position: absolute;
+    top: -0.44px;
+    left: 0;
+    width: 375px;
+    height: 229px;
+    z-index: 1;
+    overflow: hidden;
+    background-color: #EC2028;
+}
+
+.dashboard-bg {
+    width: 375px;
+    height: 229px;
+    object-fit: cover;
+    display: block;
+}
+
+.dashboard-header-content {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 0;
-    overflow: hidden;
+    z-index: 10;
+    color: white;
+    padding: 18px 16px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    pointer-events: none;
 }
 
-.dashboard-bg {
-    width: 100%;
-    height: 100%;
+.header-welcome {
+    flex: 1;
+    pointer-events: auto;
+}
+
+.welcome-text {
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+    margin: 0;
+}
+
+.welcome-number {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 4px 0 0 0;
+    font-weight: 500;
+}
+
+.header-badge {
+    display: flex;
+    align-items: center;
+    pointer-events: auto;
+}
+
+.simpati-badge {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Floating Hero Pulsa Card */
+.balance-card-hero {
+    position: absolute;
+    top: 93px;
+    left: 20px;
+    width: 335px;
+    height: 187px;
+    z-index: 5;
+    background: white;
+    border: 1px solid #f0f0f0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card-bg-image {
+    width: 335px;
+    height: 187px;
     object-fit: cover;
     display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+.card-balance-hero {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    box-sizing: border-box;
+    height: auto;
+}
+
+.balance-info-hero {
+    flex: 1;
+}
+
+.balance-label-hero {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0 0 4px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.balance-amount-hero {
+    font-size: 28px;
+    font-weight: 700;
+    color: white;
+    margin: 0;
+}
+
+.btn-isi-pulsa-hero {
+    background: #FFDE42;
+    color: #333;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.btn-isi-pulsa-hero:hover {
+    background: #FFD700;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 222, 66, 0.3);
+}
+
+.card-footer-hero {
+    position: relative;
+    z-index: 2;
+    padding: 12px 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.95);
+}
+
+.card-expiry-hero {
+    margin: 0 0 8px 0;
+}
+
+.poin-badge-hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    color: white;
+    font-weight: 600;
 }
 
 .dashboard-container {
-    position: relative;
+    position: absolute;
+    top: 280px;
+    left: 0;
+    right: 0;
     z-index: 1;
-    background: rgba(255, 255, 255, 0.98);
+    background: white;
     border-radius: 0;
-    height: 100%;
+    height: calc(100% - 280px);
     overflow-y: auto;
+    width: 375px;
 }
 
 /* Dashboard Header */
@@ -1581,52 +1741,7 @@ body.app-body {
 }
 
 /* New Dashboard Header (For Home.svg Background) */
-.dashboard-header-new {
-    background: transparent;
-    color: white;
-    padding: 18px 16px 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
-    z-index: 2;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.header-welcome {
-    flex: 1;
-}
-
-.welcome-text {
-    font-size: 16px;
-    font-weight: 700;
-    color: white;
-    margin: 0;
-}
-
-.welcome-number {
-    font-size: 12px;
-    color: rgba(255, 255, 255, 0.8);
-    margin: 4px 0 0 0;
-    font-weight: 500;
-}
-
-.header-badge {
-    display: flex;
-    align-items: center;
-}
-
-.simpati-badge {
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-    padding: 6px 12px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-}
+/* Dashboard Header Content (Now inside Background Header) - See .dashboard-header-content instead */
 
 /* Dashboard Scroll Container */
 .dashboard-scroll {
@@ -1634,7 +1749,7 @@ body.app-body {
     height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
-    padding: 20px;
+    padding: 60px 20px 20px 20px;
     box-sizing: border-box;
     background: white;
 }

@@ -114,12 +114,11 @@
 
         <!-- Screen 4: Dashboard/Home Screen -->
         <div class="app-screen" id="screen-dashboard">
-            <div class="dashboard-bg-wrapper">
-                <img src="../telkomsel/Home.svg" alt="Dashboard Background" class="dashboard-bg"/>
-            </div>
-            <div class="dashboard-container">
-                <!-- Header with Profile & Badge -->
-                <div class="dashboard-header-new">
+            <!-- Header Background -->
+            <div class="dashboard-header-bg">
+                <img src="../telkomsel/Asset/Background Header.png" alt="Dashboard Header Background" class="dashboard-bg"/>
+                <!-- Header Content -->
+                <div class="dashboard-header-content">
                     <div class="header-welcome">
                         <p class="welcome-text">Hai, <strong>Anonim</strong></p>
                         <p class="welcome-number" id="account-display">08129011XXXX</p>
@@ -128,27 +127,31 @@
                         <span class="simpati-badge">simPATI</span>
                     </div>
                 </div>
+            </div>
 
+            <!-- Floating Pulsa Card -->
+            <div class="balance-card-hero">
+                <img src="../telkomsel/Asset/Rectangle 4.png" alt="Pulsa Card Background" class="card-bg-image"/>
+                <div class="card-balance-hero">
+                    <div class="balance-info-hero">
+                        <p class="balance-label-hero">Sisa Pulsa Anda</p>
+                        <p class="balance-amount-hero">Rp34.000</p>
+                    </div>
+                    <button class="btn-isi-pulsa-hero">Isi Pulsa</button>
+                </div>
+                <div class="card-footer-hero">
+                    <p class="card-expiry-hero">Berlaku sampai <strong>19 April 2020</strong></p>
+                    <div class="poin-badge-hero">
+                        <span>Telkomsel POIN</span>
+                        <strong>172</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content Container -->
+            <div class="dashboard-container">
                 <!-- Main Scrollable Content -->
                 <div class="dashboard-scroll">
-                    <!-- Pulsa/Kuota Card -->
-                    <div class="balance-card-new">
-                        <div class="card-balance">
-                            <div class="balance-info">
-                                <p class="balance-label">Sisa Pulsa Anda</p>
-                                <p class="balance-amount-new">Rp34.000</p>
-                            </div>
-                            <button class="btn-isi-pulsa">Isi Pulsa</button>
-                        </div>
-                        <div class="card-footer">
-                            <p class="card-expiry">Berlaku sampai <strong>19 April 2020</strong></p>
-                            <div class="poin-badge">
-                                <span>Telkomsel POIN</span>
-                                <strong>172</strong>
-                            </div>
-                        </div>
-                    </div>
-
                     <!-- Kuota Section -->
                     <div class="quota-section">
                         <div class="quota-item">

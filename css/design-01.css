@@ -2024,10 +2024,13 @@ body.app-body {
     background: white;
     border: 1px solid #f0f0f0;
     border-radius: 8px;
-    padding: 12px;
+    width: 75px;
+    height: 92px;
+    padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     text-align: center;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -2044,10 +2047,15 @@ body.app-body {
     margin-bottom: 6px;
 }
 
+.kategori-icon-img {
+    width: 75px;
+    height: 92px;
+    object-fit: contain;
+    display: block;
+}
+
 .kategori-item span {
-    font-size: 11px;
-    color: #666;
-    font-weight: 500;
+    display: none;
 }
 
 /* Promo Sections */

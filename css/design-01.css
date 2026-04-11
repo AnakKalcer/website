@@ -43,18 +43,18 @@ body.app-body {
 /* App Container - Mobile Size (375x812) for Website */
 .app-container {
     position: relative;
-    width: 375px;
-    max-width: 375px;
+    width: 100%;
+    max-width: none;
     height: 812px;
     background: white;
     border-radius: 0;
     margin: 0 auto;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: none;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    border-left: 1px solid #E0E0E0;
-    border-right: 1px solid #E0E0E0;
+    border-left: none;
+    border-right: none;
     box-sizing: border-box;
 }
 
@@ -86,6 +86,9 @@ body.app-body {
         max-width: 375px;
         height: 812px;
         margin: 0 auto;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        border-left: 1px solid #E0E0E0;
+        border-right: 1px solid #E0E0E0;
     }
 }
 
@@ -136,8 +139,8 @@ body.app-body {
     position: absolute;
     top: 0;
     left: 0;
-    width: 375px;
-    height: 812px;
+    width: 100%;
+    height: 100%;
     overflow: hidden;
     background-color: #EC2028;
 }
@@ -1126,8 +1129,8 @@ body.app-body {
     color: white;
     text-align: center;
     padding: 60px 20px;
-    height: 812px;
-    width: 375px;
+    height: 100%;
+    width: 100%;
 }
 
 .splash-logo {
@@ -1462,8 +1465,8 @@ body.app-body {
     position: absolute;
     top: 0;
     left: 0;
-    width: 375px;
-    height: 812px;
+    width: 100%;
+    height: 100%;
     overflow: hidden;
 }
 
@@ -1472,17 +1475,16 @@ body.app-body {
     position: absolute;
     top: -0.44px;
     left: 0;
-    width: 375px;
+    width: 100%;
     height: 229px;
     z-index: 1;
     overflow: hidden;
-    background-color: #EC2028;
 }
 
 .dashboard-bg {
-    width: 375px;
-    height: 229px;
-    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
     display: block;
 }
 
@@ -1539,18 +1541,20 @@ body.app-body {
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-/* Floating Hero Pulsa Card */
+/* Pulsa Card - Menyatu dengan Header Background */
 .balance-card-hero {
     position: absolute;
-    top: 93px;
-    left: 20px;
-    width: 335px;
+    top: 76px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 40px);
+    max-width: 335px;
     height: 187px;
-    z-index: 5;
+    z-index: 10;
     background: white;
     border: 1px solid #f0f0f0;
     border-radius: 12px;
-    overflow: hidden;
+    overflow: visible;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
@@ -1565,47 +1569,89 @@ body.app-body {
     z-index: 0;
 }
 
-.card-balance-hero {
-    position: relative;
+.simpati-logo-card {
+    position: absolute;
+    top: 8px;
+    right: 20px;
+    width: 84px;
+    height: 15px;
+    z-index: 5;
+    object-fit: contain;
+}
+
+/* Nomor Telepon */
+.card-phone-number {
+    position: absolute;
+    top: 8px;
+    left: 20px;
+    width: 141px;
+    height: 18px;
     z-index: 2;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px;
-    box-sizing: border-box;
-    height: auto;
-}
-
-.balance-info-hero {
-    flex: 1;
-}
-
-.balance-label-hero {
-    font-size: 12px;
-    color: rgba(255, 255, 255, 0.9);
-    margin: 0 0 4px 0;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
-}
-
-.balance-amount-hero {
-    font-size: 28px;
+    font-family: 'Google Sans', 'Segoe UI', sans-serif;
     font-weight: 700;
+    font-size: 18px;
+    line-height: 18px;
+    letter-spacing: 0%;
     color: white;
     margin: 0;
 }
 
+/* Label "Sisa Pulsa Anda" */
+.card-pulsa-label {
+    position: absolute;
+    top: 42px;
+    left: 20px;
+    width: 101px;
+    height: 18px;
+    z-index: 2;
+    font-family: 'Google Sans', 'Segoe UI', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-transform: capitalize;
+    color: rgba(255, 255, 255, 0.95);
+    margin: 0;
+}
+
+/* Jumlah Pulsa */
+.card-pulsa-amount {
+    position: absolute;
+    top: 62px;
+    left: 20px;
+    width: auto;
+    height: auto;
+    z-index: 2;
+    font-family: 'Google Sans', 'Segoe UI', sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: white;
+    margin: 0;
+}
+
+/* Button Isi Pulsa */
 .btn-isi-pulsa-hero {
+    position: absolute;
+    top: 62px;
+    right: 20px;
+    width: 127px;
+    height: 42px;
+    z-index: 3;
     background: #FFDE42;
     color: #333;
     border: none;
-    padding: 10px 16px;
     border-radius: 6px;
-    font-size: 12px;
+    padding: 8px 16px;
+    gap: 10px;
+    font-family: 'Google Sans', 'Segoe UI', sans-serif;
     font-weight: 600;
+    font-size: 14px;
     cursor: pointer;
     transition: all 0.3s ease;
     white-space: nowrap;
+    box-sizing: border-box;
 }
 
 .btn-isi-pulsa-hero:hover {
@@ -1614,41 +1660,115 @@ body.app-body {
     box-shadow: 0 4px 12px rgba(255, 222, 66, 0.3);
 }
 
-.card-footer-hero {
-    position: relative;
+/* Tanggal Berlaku */
+.card-expiry-text {
+    position: absolute;
+    top: 110px;
+    left: 20px;
+    width: 215px;
+    height: 18px;
     z-index: 2;
-    padding: 12px 16px;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-    font-size: 12px;
+    font-family: 'Google Sans', 'Segoe UI', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 100%;
+    letter-spacing: 0%;
     color: rgba(255, 255, 255, 0.95);
+    margin: 0;
 }
 
-.card-expiry-hero {
-    margin: 0 0 8px 0;
+.card-expiry-text strong {
+    font-weight: 500;
 }
 
-.poin-badge-hero {
+/* Label "Telkomsel POIN" */
+.card-poin-label {
+    position: absolute;
+    top: 133px;
+    left: 20px;
+    width: auto;
+    height: 18px;
+    z-index: 2;
+    font-family: 'Google Sans', 'Segoe UI', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: rgba(255, 255, 255, 0.95);
+    margin: 0;
+    white-space: nowrap;
+}
+
+/* Badge Poin */
+.card-poin-badge {
+    position: absolute;
+    top: 133px;
+    left: 130px;
+    width: auto;
+    height: 22px;
+    z-index: 2;
+    background: #F7B731;
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-family: 'Google Sans', 'Segoe UI', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 18px;
+    color: #333;
+    text-align: center;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 8px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 6px;
-    color: white;
-    font-weight: 600;
+    justify-content: center;
+    box-sizing: border-box;
+}
+    color: #333;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
 }
 
+/* Dashboard Content Container with Invisible Scrollbar */
 .dashboard-container {
     position: absolute;
-    top: 280px;
+    top: 0;
     left: 0;
     right: 0;
+    width: 100%;
+    height: 100%;
     z-index: 1;
     background: white;
     border-radius: 0;
-    height: calc(100% - 280px);
-    overflow-y: auto;
-    width: 375px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding-top: 270px;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    
+    /* Firefox - Hide scrollbar */
+    scrollbar-width: none;
+    
+    /* IE and Edge - Hide scrollbar */
+    -ms-overflow-style: none;
+}
+
+/* Chrome, Safari and Opera - Hide scrollbar */
+.dashboard-container::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
+
+.dashboard-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.dashboard-container::-webkit-scrollbar-thumb {
+    background: transparent;
+}
+
+.dashboard-container::-webkit-scrollbar-thumb:hover {
+    background: transparent;
 }
 
 /* Dashboard Header */
@@ -1746,29 +1866,25 @@ body.app-body {
 /* Dashboard Scroll Container */
 .dashboard-scroll {
     width: 100%;
-    height: 100%;
-    overflow-y: auto;
+    height: auto;
+    overflow-y: visible;
     overflow-x: hidden;
-    padding: 60px 20px 20px 20px;
+    padding: 0 20px 80px 20px;
     box-sizing: border-box;
     background: white;
 }
 
-.dashboard-scroll::-webkit-scrollbar {
-    width: 6px;
-}
-
-.dashboard-scroll::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.dashboard-scroll::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.15);
-    border-radius: 3px;
-}
-
-.dashboard-scroll::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 0, 0, 0.25);
+/* Scroll Indicator - Subtle gradient to show more content below */
+.dashboard-scroll::after {
+    content: '';
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.7));
+    pointer-events: none;
+    z-index: 5;
 }
 
 /* New Balance Card (for Home.svg) */

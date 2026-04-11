@@ -44,6 +44,7 @@ function goToScreen(screenId) {
                 } else if (screenId === 'screen-news') {
                     loadNewsFromAPI();
                 } else if (screenId === 'screen-dashboard') {
+                    displayDashboardInfo();
                     checkProfileCompletion();
                     updateDashboardNews();
                     setupNewsAutoRefresh();
@@ -79,6 +80,7 @@ function goToScreen(screenId) {
             } else if (screenId === 'screen-news') {
                 loadNewsFromAPI();
             } else if (screenId === 'screen-dashboard') {
+                displayDashboardInfo();
                 checkProfileCompletion();
                 updateDashboardNews();
                 setupNewsAutoRefresh();
@@ -408,6 +410,22 @@ function handlePhotoUpload(input) {
         };
         
         reader.readAsDataURL(input.files[0]);
+    }
+}
+
+// Display Dashboard Information
+function displayDashboardInfo() {
+    const accountNumber = localStorage.getItem('accountNumber');
+    const cardPhoneDisplay = document.getElementById('card-phone-display');
+    const accountDisplay = document.getElementById('account-display');
+    
+    if (accountNumber) {
+        if (cardPhoneDisplay) {
+            cardPhoneDisplay.textContent = accountNumber;
+        }
+        if (accountDisplay) {
+            accountDisplay.textContent = accountNumber;
+        }
     }
 }
 

@@ -13,46 +13,79 @@ function goToScreen(screenId) {
         console.log('Previous splash timeout cleared'); // Debug log
     }
     
-    // Hide all screens
-    const allScreens = document.querySelectorAll('.app-screen');
-    allScreens.forEach(screen => {
-        screen  .classList.remove('active-screen');
-    });
-    
-    // Show target screen
-    const targetScreen = document.getElementById(screenId);
-    if (targetScreen) {
-        targetScreen.classList.add('active-screen');
-        console.log('Screen shown:', screenId); // Debug log
-        
-        // Update bottom navigation visibility and active state
-        updateBottomNav(screenId);
-        
-        // Auto-advance from splash screen to login after 5 seconds
-        if (screenId === 'screen-splash') {
-            console.log('Splash screen shown, starting 5 second timer...'); // Debug log
-            splashTimeout = setTimeout(() => {
-                console.log('5 seconds timeout triggered, going to login'); // Debug log
-                goToScreen('screen-login');
-            }, 5000);
-        }
-        
-        // Load data when screen changes
-        if (screenId === 'screen-profile') {
-            displayUserProfile();
-        } else if (screenId === 'screen-settings') {
-            loadSettingsForm();
-        } else if (screenId === 'screen-transactions') {
-            displayTransactions();
-        } else if (screenId === 'screen-news') {
-            loadNewsFromAPI();
-        } else if (screenId === 'screen-dashboard') {
-            checkProfileCompletion();
-            updateDashboardNews();
-            setupNewsAutoRefresh();
-        }
+    // Apply dissolve animation to splash screen if leaving it
+    const splashScreen = document.getElementById('screen-splash');
+    if (splashScreen && splashScreen.classList.contains('active-screen') && screenId !== 'screen-splash') {
+        splashScreen.classList.add('dissolve-out');
+        // Wait for animation to complete
+        setTimeout(() => {
+            // Hide all screens after animation
+            const allScreens = document.querySelectorAll('.app-screen');
+            allScreens.forEach(screen => {
+                screen.classList.remove('active-screen');
+            });
+            
+            // Show target screen
+            const targetScreen = document.getElementById(screenId);
+            if (targetScreen) {
+                targetScreen.classList.add('active-screen');
+                console.log('Screen shown:', screenId); // Debug log
+                
+                // Update bottom navigation visibility and active state
+                updateBottomNav(screenId);
+                
+                // Load data when screen changes
+                if (screenId === 'screen-profile') {
+                    displayUserProfile();
+                } else if (screenId === 'screen-settings') {
+                    loadSettingsForm();
+                } else if (screenId === 'screen-transactions') {
+                    displayTransactions();
+                } else if (screenId === 'screen-news') {
+                    loadNewsFromAPI();
+                } else if (screenId === 'screen-dashboard') {
+                    checkProfileCompletion();
+                    updateDashboardNews();
+                    setupNewsAutoRefresh();
+                }
+            } else {
+                console.error('Screen not found:', screenId); // Error log
+            }
+        }, 300);
     } else {
-        console.error('Screen not found:', screenId); // Error log
+        // Normal navigation (not from splash screen)
+        // Hide all screens
+        const allScreens = document.querySelectorAll('.app-screen');
+        allScreens.forEach(screen => {
+            screen.classList.remove('active-screen');
+        });
+        
+        // Show target screen
+        const targetScreen = document.getElementById(screenId);
+        if (targetScreen) {
+            targetScreen.classList.add('active-screen');
+            console.log('Screen shown:', screenId); // Debug log
+            
+            // Update bottom navigation visibility and active state
+            updateBottomNav(screenId);
+            
+            // Load data when screen changes
+            if (screenId === 'screen-profile') {
+                displayUserProfile();
+            } else if (screenId === 'screen-settings') {
+                loadSettingsForm();
+            } else if (screenId === 'screen-transactions') {
+                displayTransactions();
+            } else if (screenId === 'screen-news') {
+                loadNewsFromAPI();
+            } else if (screenId === 'screen-dashboard') {
+                checkProfileCompletion();
+                updateDashboardNews();
+                setupNewsAutoRefresh();
+            }
+        } else {
+            console.error('Screen not found:', screenId); // Error log
+        }
     }
 }
 

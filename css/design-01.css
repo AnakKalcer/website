@@ -1584,7 +1584,7 @@ body.app-body {
 /* Pulsa Card - Menyatu dengan Header Background */
 .balance-card-hero {
     position: absolute;
-    top: 70px;
+    top: 60px;
     left: 50%;
     transform: translateX(-50%);
     width: calc(100% - 40px);
@@ -1976,54 +1976,64 @@ body.app-body {
 /* Quota Section */
 .quota-section {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: stretch;
     gap: 16px;
     width: 100%;
-    max-width: 335px;
-    margin: -25px auto 20px auto;
-    padding: 0 20px;
+    padding: 16px 20px;
     box-sizing: border-box;
     position: relative;
     z-index: 8;
+    margin: -40px 0 24px 0;
+    background: transparent;
 }
 
 .quota-item {
     flex: 1;
-    background: white;
-    border-radius: 12px;
-    padding: 16px 12px;
+    min-height: 70px;
+    background: #fafafa;
+    border-radius: 8px;
+    padding: 12px;
     text-align: center;
     border: 1px solid #f0f0f0;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
     transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .quota-item:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
 }
 
 .quota-label {
-    font-size: 12px;
-    color: #999;
+    font-size: 13px;
+    color: #333;
     margin: 0 0 6px 0;
     text-transform: capitalize;
     font-weight: 500;
 }
 
 .quota-amount {
-    font-size: 18px;
+    font-size: 24px;
     font-weight: 700;
     color: #EC2028;
     margin: 0;
-    line-height: 1.2;
+    line-height: 1;
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
 }
 
 .quota-amount span {
-    font-size: 12px;
+    font-size: 13px;
     color: #999;
-    font-weight: 500;
-    display: block;
-    margin-top: 2px;
+    font-weight: 400;
+    display: inline;
+    margin: 0;
 }
 
 /* Kategori Section */
@@ -2108,38 +2118,87 @@ body.app-body {
     font-weight: 600;
 }
 
+.promo-cards-wrapper {
+    width: 356px;
+    height: 100px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    margin: 0 auto;
+    border-radius: 8px;
+    cursor: grab;
+    user-select: none;
+}
+
+.promo-cards-wrapper:active {
+    cursor: grabbing;
+}
+
+/* Hide scrollbar - Chrome, Safari */
+.promo-cards-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar - Firefox */
+.promo-cards-wrapper {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
 .promo-cards-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
     gap: 12px;
+    width: fit-content;
+    padding: 0;
+    margin: 0;
 }
 
 .promo-card-large {
-    border-radius: 8px;
+    width: 248px;
+    height: 100px;
+    min-width: 248px;
+    border-radius: 12px;
     padding: 16px;
     color: white;
     display: flex;
     align-items: flex-end;
-    min-height: 120px;
+    position: relative;
     cursor: pointer;
     transition: all 0.3s ease;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+.promo-card-large::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 1;
 }
 
 .promo-card-large:hover {
-    transform: translateY(-4px);
+    transform: translateY(-2px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
 .omg-card {
-    background: linear-gradient(135deg, #FF6B35 0%, #EC2028 100%);
+    background-image: url('../telkomsel/promo/Group 22.svg');
 }
 
 .promo-blue-card {
-    background: linear-gradient(135deg, #0052CC 0%, #003DA5 100%);
+    background-image: url('../telkomsel/promo/image 2.svg');
 }
 
 .promo-card-content {
     width: 100%;
+    position: relative;
+    z-index: 2;
 }
 
 /* COVID Section */

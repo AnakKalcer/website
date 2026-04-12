@@ -1375,6 +1375,56 @@ function showToast(message, type = 'info') {
 
 // ============= AUTO-LOAD PREVIOUS SESSION =============
 
+// Promo Cards Drag/Swipe Functionality
+function setupPromoCardsDragScroll() {
+    const wrapper = document.querySelector('.promo-cards-wrapper');
+    if (!wrapper) return;
+    
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+    
+    wrapper.addEventListener('mousedown', (e) => {
+        isDown = true;
+        startX = e.pageX - wrapper.offsetLeft;
+        scrollLeft = wrapper.scrollLeft;
+    });
+    
+    wrapper.addEventListener('mouseleave', () => {
+        isDown = false;
+    });
+    
+    wrapper.addEventListener('mouseup', () => {
+        isDown = false;
+    });
+    
+    wrapper.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - wrapper.offsetLeft;
+        const walk = (x - startX) * 1; // scroll speed
+        wrapper.scrollLeft = scrollLeft - walk;
+    });
+    
+    // Touch events for mobile
+    wrapper.addEventListener('touchstart', (e) => {
+        isDown = true;
+        startX = e.touches[0].pageX - wrapper.offsetLeft;
+        scrollLeft = wrapper.scrollLeft;
+    });
+    
+    wrapper.addEventListener('touchend', () => {
+        isDown = false;
+    });
+    
+    wrapper.addEventListener('touchmove', (e) => {
+        if (!isDown) return;
+        const x = e.touches[0].pageX - wrapper.offsetLeft;
+        const walk = (x - startX) * 1;
+        wrapper.scrollLeft = scrollLeft - walk;
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Page loaded, initializing app'); // Debug log
     
@@ -1386,6 +1436,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Load initial news
     loadNewsFromAPI();
+    
+    // Setup promo cards drag/swipe
+    setupPromoCardsDragScroll();
     
     // Always start from splash screen (which will auto-advance after 5 seconds)
     goToScreen('screen-splash');
